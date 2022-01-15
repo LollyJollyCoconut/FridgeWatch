@@ -21,7 +21,7 @@ nav .nav-item:hover{
 
 body{
 	margin-top:  75px;
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'Comfortaa', sans-serif;
 	color: black;
 }
 
@@ -44,4 +44,8 @@ body{
 
 .footer-link:hover {
 	color: #8ddaa6;
+}
+
+.hide {
+	display: none;
 }
