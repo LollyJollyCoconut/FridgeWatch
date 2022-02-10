@@ -49,3 +49,24 @@ body{
 .hide {
 	display: none;
 }
+
+.ingredients-category-heading {
+	margin-bottom:  0rem;
+	display:  inline-block;
+	text-transform:  capitalize;
+}
+
+.show-ingredients-button {
+	font-size: 0.5em;
+	font-weight: 1000;
+	float: right;
+	padding: 1em;
+}
+
+.show-ingredients-button[aria-expanded = true]>.down-arrow {
+	display: none;
+}
+
+.show-ingredients-button[aria-expanded = false]>.up-arrow {
+	display: none;
+}
