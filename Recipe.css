@@ -54,13 +54,14 @@ body{
 	margin-bottom:  0rem;
 	display:  inline-block;
 	text-transform:  capitalize;
+	font-size:  2.0em;
 }
 
 .show-ingredients-button {
 	font-size: 0.5em;
 	font-weight: 1000;
-	float: right;
 	padding: 1em;
+	margin-bottom: 2.00em;
 }
 
 .show-ingredients-button[aria-expanded = true]>.down-arrow {

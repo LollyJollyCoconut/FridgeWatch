@@ -18,8 +18,9 @@ categoriesList.forEach(function(category) {
 	let categoryClass = category.replaceAll(' ','-');
 	ingredientsSearchSection.innerHTML += `<section class = "ingredients-category-list ${categoryClass}">
 		<div class = "ingredients-category-header">
-			<h3 class = "ingredients-category-heading">${category}</h3>
-			<button class = "btn btn-outline-dark show-ingredients-button" type = "button" data-bs-toggle = "collapse" data-bs-target = "#collapse-${categoryClass}" aria-expanded = "false" aria-controls = "collapse-${categoryClass}">
+			<!-- <h3 class = "ingredients-category-heading">${category}</h3> -->
+			<button class = "btn btn-outline-dark show-ingredients-button col-12" type = "button" data-bs-toggle = "collapse" data-bs-target = "#collapse-${categoryClass}" aria-expanded = "false" aria-controls = "collapse-${categoryClass}">
+				<span class = "ingredients-category-heading">${category} </span>
 				<span class = "down-arrow">╲╱</span>
 				<span class = "up-arrow">╱╲</span>
 			</button>
