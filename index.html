@@ -9,6 +9,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap-select-1.13.14/dist/css/bootstrap-select.css" rel="stylesheet">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,6 +60,12 @@
         </section>
         <h2>Include/Exclude Ingredients</h2>
         <section id = "ingredients-search-section"></section>
+        <select class="selectpicker" multiple>
+      <option>Mustard</option>
+      <option>Ketchup</option>
+      <option>Relish</option>
+    </select>
+
       </form>
     </section>
     <section class = "col-md-3 filters-section"> 
@@ -76,6 +83,8 @@
       </div>
     </footer>
   <script src="Bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="jquery-3.6.0.min.js"></script>
+  <script src="bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
   <script src = "footer.js"></script>
   <script src = "config.js"></script>
   <script src = "ingredientsList.js"></script>
