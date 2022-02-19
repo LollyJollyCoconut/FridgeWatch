@@ -1,7 +1,8 @@
 header{
-	background-image: url("Recipe Banner.jpg");
-	height:  200px;
 	background-size: 200px 100%;
+	text-align: center;
+	padding-top: 25px;
+	padding-bottom: 25px;
 }
 
 .logo-img{
@@ -54,6 +55,7 @@ body{
 	margin-bottom:  0rem;
 	display:  inline-block;
 	text-transform:  capitalize;
+	margin-right: 25px;
 	font-size:  2.0em;
 }
 
@@ -61,7 +63,9 @@ body{
 	font-size: 0.5em;
 	font-weight: 1000;
 	padding: 1em;
-	margin-bottom: 2.00em;
+	margin-top: 2em;
+	text-align: left;
+	position: relative!important;
 }
 
 .show-ingredients-button[aria-expanded = true]>.down-arrow {
@@ -70,4 +74,12 @@ body{
 
 .show-ingredients-button[aria-expanded = false]>.up-arrow {
 	display: none;
+}
+
+.down-arrow,.up-arrow {
+	position: absolute!important;
+	top: 50%!important;
+	right: 10px!important;
+	transform: translateY(-50%)!important;
+	display: block;
 }
