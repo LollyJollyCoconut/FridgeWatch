@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>...</title>
+    <title>FridgeWatch</title>
 
     <!-- Bootstrap core CSS -->
     <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -48,32 +48,34 @@
       <div class = "col-12">
         <h1>Welcome to FridgeWatch</h1>
         <h2>Search Recipe by Ingredient Below</h2>
-        <section class = "d-flex general-search-section col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-          <input class = "form-control me-2 search-ingredients-text" type = "search" placeholder = "Search" aria-label = "Search">
-          <button class = "btn btn-outline-success search-ingredients-button" type = "button">Search</button>
-        </section>
-        <section class = "row selected-search-parameters-section text-start py-3 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-          <p><b>Include Ingredients:</b><span class = "included-ingredients"></span></p>
-          <p><b>Exclude Ingredients:</b><span class = "excluded-ingredients"></span></p>
-          <p><b>Include Filters:</b><span class = "included-filters"></span></p>
-          <p><b>Exclude Filters:</b><span class = "excluded-filters"></span></p>
-        </section>
-        <section class = "row advanced-search-buttons-section col-md-10 offset-md-1">
-          <button class = "btn btn-outline-dark show-ingredients-button col-sm-5 offset-sm-1 collapsed neutral-ingredient" type = "button" data-bs-toggle = "collapse" data-bs-target = "#ingredients-search-section" aria-expanded = "false" aria-controls = "ingredients-search-section">
-            <span class = "ingredients-category-heading">Include/Exclude Ingredients</span>
-            <span class = "down-arrow">╲╱</span>
-            <span class = "up-arrow">╱╲</span>
-          </button>
-          <button class = "btn btn-outline-dark show-ingredients-button col-sm-4 offset-sm-1 collapsed neutral-ingredient" type = "button" data-bs-toggle = "collapse" data-bs-target = "#advanced-search-options-section" aria-expanded = "false" aria-controls = "advanced-search-options-section">
-            <span class = "ingredients-category-heading">Advanced Search</span>
-            <span class = "down-arrow">╲╱</span>
-            <span class = "up-arrow">╱╲</span>
-          </button>
-        </section>
+        <form>
+          <section class = "d-flex general-search-section col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+            <input class = "form-control me-2 search-ingredients-text" type = "search" placeholder = "Search" aria-label = "Search">
+            <button class = "btn btn-outline-success search-ingredients-button" type = "button">Search</button>
+          </section>
+          <section class = "row selected-search-parameters-section text-start py-3 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+            <p><b>Include Ingredients:</b><span class = "included-ingredients"></span></p>
+            <p><b>Exclude Ingredients:</b><span class = "excluded-ingredients"></span></p>
+            <p><b>Include Filters:</b><span class = "included-filters"></span></p>
+            <p><b>Exclude Filters:</b><span class = "excluded-filters"></span></p>
+          </section>
+          <section class = "row advanced-search-buttons-section col-md-10 offset-md-1">
+            <button class = "btn btn-outline-dark show-ingredients-button col-sm-5 offset-sm-1 collapsed neutral-ingredient" type = "button" data-bs-toggle = "collapse" data-bs-target = "#ingredients-search-section" aria-expanded = "false" aria-controls = "ingredients-search-section">
+              <span class = "ingredients-category-heading">Include/Exclude Ingredients</span>
+              <span class = "down-arrow">╲╱</span>
+              <span class = "up-arrow">╱╲</span>
+            </button>
+            <button class = "btn btn-outline-dark show-ingredients-button col-sm-4 offset-sm-1 collapsed neutral-ingredient" type = "button" data-bs-toggle = "collapse" data-bs-target = "#advanced-search-options-section" aria-expanded = "false" aria-controls = "advanced-search-options-section">
+              <span class = "ingredients-category-heading">Advanced Search</span>
+              <span class = "down-arrow">╲╱</span>
+              <span class = "up-arrow">╱╲</span>
+            </button>
+          </section>
+        </form>
       </div>
     </header>
     <main class = "row m-3">
-      <section id = "ingredients-search-section" class = "collapse row">
+      <section id = "ingredients-search-section" class = "collapse row gx-0">
       </section>
       <section class = "col-md-3 filters-section"> 
       </section>

@@ -1,17 +1,7 @@
-// fetch("https://api.spoonacular.com/recipes/716429/information?includeNurtrition=true", {
-// 	"method": "GET",
-// 	"headers": {
-// 		"apikey": "e9d8bd1f1f7e4330b38d9a687f20be20"
-// 	}
-// })
-
-// .then(response => {
-// 	console.log(response.json());
-// })
-
-// .catch(err => {
-// 	console.error(err);
-// });
+let searchButton = document.querySelector(".search-ingredients-button");
+let searchText = document.querySelector(".search-ingredients-text");
+let apiURL;
+let apiResponse;
 let includedIngredientsList = [];
 let excludedIngredientsList = [];
 let includedIngredientsSpan = document.querySelector(".included-ingredients");
@@ -49,5 +39,56 @@ ingredientsList.forEach(function(ingredient){
 			button.classList.add("btn-outline-success");
 			excludedIngredientsList = excludedIngredientsList.filter(ingredient => ingredient != event.target.innerText);
 		}
+		else if (button.classList.contains("include-ingredient")){
+			button.classList.remove("include-ingredient");
+			button.classList.remove("btn-success");
+			button.classList.add("exclude-ingredient");
+			button.classList.add("btn-danger");
+			includedIngredientsList = includedIngredientsList.filter(ingredient => ingredient != event.target.innerText);
+			excludedIngredientsList.push(event.target.innerText);
+		}
+		else {
+			button.classList.remove("neutral-ingredient");
+			button.classList.remove("btn-outline-success");
+			button.classList.add("include-ingredient");
+			button.classList.add("btn-success");
+			includedIngredientsList.push(event.target.innerText);
+		}
+		includedIngredientsSpan.innerText = "";
+		includedIngredientsList.forEach(function(ingredient) {
+			includedIngredientsSpan.innerText += ` ${ingredient},`;
+		});
+		excludedIngredientsSpan.innerText = excludedIngredientsSpan.innerText.slice(0,-1);
+
+		excludedIngredientsSpan.innerText = "";
+		excludedIngredientsList.forEach(function(ingredient) {
+			excludedIngredientsSpan.innerText += ` ${ingredient},`;
+		});
+		excludedIngredientsSpan.innerText = excludedIngredientsSpan.innerText.slice(0,-1);
+	});
+});
+let searchForm = document.querySelector('form');
+searchForm.addEventListener('submit', function (event) {
+	event.preventDeafault();
+	event.stopPropagation();
+}, false);
+searchButton.addEventListener("click", function(event) {
+	apiURL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apikey}&addRecipeInformation=true`;
+	if (searchText.value != "") {
+		apiURL += `&query=${searchText.value}`;
+	}
+	fetch(apiURL, {
+		"method": "GET"
+	})
+	.then(response => {
+		console.log("done");
+		return response.json();
+	})
+	.then(data => {
+		console.log(data);
+		apiResponse = data;
+	})
+	.catch(err => {
+		console.error(err);
 	});
 });

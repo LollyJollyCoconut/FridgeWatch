@@ -68,11 +68,11 @@ body{
 	position: relative!important;
 }
 
-.show-ingredients-button[aria-expanded = true]>.down-arrow {
+.show-ingredients-button[aria-expanded = true]>.down-arrow, .collapsing-button[aria-expanded = true]>.down-arrow {
 	display: none;
 }
 
-.show-ingredients-button[aria-expanded = false]>.up-arrow {
+.show-ingredients-button[aria-expanded = false]>.up-arrow, .collapsing-button[aria-expanded = false]>.up-arrow {
 	display: none;
 }
 
@@ -82,4 +82,53 @@ body{
 	right: 10px!important;
 	transform: translateY(-50%)!important;
 	display: block;
+}
+
+.general-search-section {
+	margin-top: 30px;
+}
+
+.list-inline {
+	list-style-type: none;
+	padding: 0;
+	width: 100%;
+}
+
+.ingredients-category-list > ul > li > button {
+	margin: 1rem 0rem 0rem 0rem;
+}
+
+.search-ingredients-button, .neutral-ingredient, .neutral-button {
+	color: #1a84a0;
+	border-color: #1a84a0;
+}
+
+.search-ingredients-button:hover, .neutral-ingredient:hover, .neutral-button:hover {
+	background-color: #1a84a0;
+	border-color: #1a84a0;
+}
+
+.search-ingredients-button:focus, .neutral-ingredient:focus, .neutral-button:focus {
+	box-shadow: 0 0 0 0.25rem #1a84a080;
+}
+
+.search-ingredients-text:focus {
+	border-color:  #1a84a0;
+	box-shadow: 0 0 0 0.25rem #1a84a020;
+}
+
+.include-ingredient {
+	background-color: #137457;
+	border-color: #137457;
+}
+
+.include-ingredient:hover {
+	background-color: #1a8c5a;
+	border-color: #1a8c5a;
+}
+
+.exclude-ingredient {
+	text-decoration: line-through 0.2em;
+	background-color: #a61d2a;
+	border-color: #a61d2a;
 }
