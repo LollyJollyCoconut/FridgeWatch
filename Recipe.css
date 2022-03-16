@@ -7,7 +7,15 @@ header{
 
 .logo-img{
 	width:  70px;
-/*	height:  70px;*/
+	height:  70px;
+}
+
+#camera-logo, .about-logo {
+	max-width: 300px;
+}
+
+.navbar {
+	padding: 10;
 }
 
 .navbar-dark .navbar-nav .nav-link{
@@ -131,4 +139,8 @@ body{
 	text-decoration: line-through 0.2em;
 	background-color: #a61d2a;
 	border-color: #a61d2a;
+}
+
+.camera-div {
+	text-align: center;
 }

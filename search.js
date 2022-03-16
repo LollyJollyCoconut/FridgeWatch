@@ -69,6 +69,7 @@ ingredientsList.forEach(function(ingredient){
 });
 let searchForm = document.querySelector('form');
 searchForm.addEventListener('submit', function (event) {
+	searchButton.click();
 	event.preventDeafault();
 	event.stopPropagation();
 }, false);
