@@ -57,6 +57,9 @@
             <p><b>Include Ingredients:</b><span class = "included-ingredients"></span></p>
             <p><b>Exclude Ingredients:</b><span class = "excluded-ingredients"></span></p>
             <p><b>Include Filters:</b><span class = "included-filters"></span></p>
+            <p class = "included-filters-max-ready-time"></p>
+            <p class = "included-filters included-filters-max-calories"></p>
+            <p class = "included-filters included-filters-diet"></p>
             <p><b>Exclude Filters:</b><span class = "excluded-filters"></span></p>
           </section>
           <section class = "row advanced-search-buttons-section col-md-10 offset-md-1">
@@ -77,7 +80,51 @@
     <main class = "row m-3">
       <section id = "ingredients-search-section" class = "collapse row gx-0">
       </section>
-      <section class = "col-md-3 filters-section"> 
+      <section id = "advanced-search-options-section" class = "collapse row gx-0">
+        <section class = "filter-max-ready-time-slider col-md-6 px-2">
+          <div class = "ingredients-category-header advanced-category-header">
+            <button class = "btn btn-outline-dark collapsing-button col-12" type = "button" data-bs-toggle = "collapse" data-bs-target = "#collapse-filter-ready-time" aria-expanded = "false" aria-controls = "collapse-filter-ready-time">
+              <span class = "ingredients-category-heading">Max Ready Time</span>
+              <cpan class = "down-arrow">╲╱</span>
+              <span class = "up-arrow">╱╲</span>
+            </button>
+          </div>
+          <div id = "collapse-filter-ready-time" class = "list-inline col-md-12 collapse">
+            <label for = "max-ready-time-slider" class = "form-label">Maximum Time to Cook Recipe: 
+              <span class = "filter-ready-time-value"></span></label>
+              <input type = "range" class = "form-range" value = "60" min = "20" max = "300" step = "20" id = "max-ready-time-slider">
+          </div>
+        </section>
+        <section class = "filter-max-calories-slider col-md-6 px-2">
+          <div class = "ingredients-category-header advanced-category-header">
+            <button class = "btn btn-outline-dark collapsing-button col-12" type = "button" data-bs-toggle = "collapse" data-bs-target = "#collapse-filter-max-calories" aria-expanded = "false" aria-controls = "collapse-filter-max-calories">
+              <span class = "ingredients-category-heading">Max Calories</span>
+              <span class = "down-arrow">╲╱</span>
+              <span class = "up-arrow">╱╲</span>
+            </button>
+          </div>
+          <div id = "collapse-filter-max-calories" class = "list-inline col-md-6 collapse">
+            <label for = "max-calories-slider" class = "form-label">Maximum Calories for Recipe: <span class = "filter-max-calories-value"></span></label>
+            <input type = "range" class = "form-range" value = "1000" min = "50" max = "1000" step = "25" id = "max-calories-slider">
+          </div>
+        </section>
+        <section class = "filter-diet col-md-6 px-2">
+          <div class = "ingredients-category-header advanced-category-header">
+            <button class = "btn btn-outline-dark collapsing-button col-12" type = "button" data-bs-toggle = "collapse" data-bs-target = "#collapse-filter-diet" aria-expanded = "false" aria-controls = "collapse-filter-diet">
+              <span class = "ingredients-category-heading">Diet</span>
+              <span class = "down-arrow">╲╱</span>
+              <span class = "up-arrow">╱╲</span>
+            </button>
+          </div>
+          <div id = "collapse-filter-diet" class = "list-inlone col-md-6 collapse">
+          </div>
+        </section>
+        <section class = "filter-meal-types col-md-6 px-2">
+          <div class = "ingredients-category-header advanced-category-header advanced-category-header-with-buttons">
+            <button class = "btn btn-outline-dark collapsing-button col-12" type = "button" data-bs-toggle = "collapse" data-bs-target = "#collapse-filter-meal-types" aria-expanded = "false" aria-controls = "collapse-filter-meal-types">
+            </button>
+          </div>
+        </section>
       </section>
       <section class = "col-md-6 results-section">
       </section>
