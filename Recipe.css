@@ -42,7 +42,6 @@ body{
 	left: 0;
 	right: 0;
 	overflow-y: scroll;
-	overflow-x: scroll;
 	background-size: 100%;
 	background-image:  url("Media/bg2.jpg");
 	
@@ -171,4 +170,19 @@ body{
 	margin-bottom: 0.5rem;
 	margin-top: 0rem;
 	margin-left: 1rem;
+}
+
+.included-filters-heading < .included-filters:not(:empty), .excluded-filters-heading < .excluded-filters:not(:empty) {
+	margin-bottom: 5rem;
+	background-color: red;
+}
+
+.included-filters, .excluded-filters {
+	margin-bottom: 0.5rem;
+	margin-top: 0rem;
+	margin-left: 1rem;
+}
+
+.included-filters:empty:, .excluded-filters:empty {
+	margin-bottom: 0;
 }
