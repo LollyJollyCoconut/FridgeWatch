@@ -2,6 +2,8 @@ let searchButton = document.querySelector(".search-ingredients-button");
 let searchText = document.querySelector(".search-ingredients-text");
 let apiURL;
 let apiResponse;
+let recipeResultsList;
+let recipeResultsSection = document.querySelector(".results-cards-container");
 let maxReadyTimeSlider = document.querySelector("#max-ready-time-slider");
 let maxReadyTimeValue = null;
 let maxReadyTimeSpan = document.querySelector(".included-filters-max-ready-time");
@@ -135,8 +137,41 @@ searchButton.addEventListener("click", function(event) {
 	.then(data => {
 		console.log(data);
 		apiResponse = data;
+		recipeResultsList = apiResponse.results;
+		displayResults();
 	})
 	.catch(err => {
 		console.error(err);
 	});
 });
+function displayResults() {
+	recipeResultsSection.innerHTML = "";
+	recipeResultsList.forEach(function(recipe) {
+		let cuisines = recipe.cuisines.toString().replaceAll(",",", ");
+			if (cuisines == "") {
+			cuisines = "None";
+		}
+		let diets = recipe.diets.toString().replaceAll(",",", ");
+			if (diets == "") {
+			diets = "None";
+		}
+		let dishTypes = recipe.dishTypes.toString().replaceAll(",",", ");
+			if (dishTypes == ""){
+			dishTypes = "none";
+		}
+		recipeResultsSection.innerHTML +=`<div class = "col">
+            <div class = "card card-recipe">
+              <img src = ${recipe.image} alt = "${recipe.title}">
+              <div class = "card-body">
+                <h5 class = "card-title card-recipe-title">${recipe.title}</h5>
+                <p class = "card-text"><span class = "card-recipe-label">Ready Time: </span><span class = "card-recipe-ready-time">${recipe.readyInMinutes} Minutes</span></p>
+                <p class = "card-text"><span class = "card-recipe-label">Calories: </span><span class = "card-recipe-calories">${recipe.readyInMinutes} Calories</span></p>
+                <p class = "card-text"><span class = "card-recipe-label">Cuisine: </span><span class = "card-recipe-cuisine">${cuisines}</span></p>
+                <p class = "card-text"><span class = "card-recipe-label">Diet: </span><span class = "card-recipe-diet">${diets}</span></p>
+                <p class = "card-text"><span class = "card-recipe-label">Meal Type: </span><span class = "card-recipe-meal-type">${dishTypes}</span></p>
+              </div>
+            </div>
+          </div>`;
+
+	});
+}

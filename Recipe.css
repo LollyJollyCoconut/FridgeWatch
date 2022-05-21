@@ -186,3 +186,16 @@ body{
 .included-filters:empty:, .excluded-filters:empty {
 	margin-bottom: 0;
 }
+
+
+.card-recipe-title {
+	font-weight: 700;
+}
+
+.card-recipe {
+	font-weight: 300;
+}
+
+.card-recipe-label {
+	font-weight: 600;
+}
