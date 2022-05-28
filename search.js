@@ -159,13 +159,24 @@ function displayResults() {
 			if (dishTypes == ""){
 			dishTypes = "none";
 		}
-		recipeResultsSection.innerHTML +=`<div class = "col">
+		let summary = recipe.summary;
+		let summaryptag = document.createElement(`p`);
+		summaryptag.innerHTML = summary;
+		let summarybtags = summaryptag.querySelectorAll("b");
+		let summaryCalories;
+		summarybtags.forEach(tag => {
+			if (tag.innerText.search("calories")!= -1) {
+				summaryCalories = tag.innerText;
+			}
+		});
+
+		recipeResultsSection.innerHTML +=`<div class = "col" style = "text-transform: capitalize;">
             <div class = "card card-recipe">
               <img src = ${recipe.image} alt = "${recipe.title}">
               <div class = "card-body">
                 <h5 class = "card-title card-recipe-title">${recipe.title}</h5>
                 <p class = "card-text"><span class = "card-recipe-label">Ready Time: </span><span class = "card-recipe-ready-time">${recipe.readyInMinutes} Minutes</span></p>
-                <p class = "card-text"><span class = "card-recipe-label">Calories: </span><span class = "card-recipe-calories">${recipe.readyInMinutes} Calories</span></p>
+                <p class = "card-text"><span class = "card-recipe-label">Calories: </span><span class = "card-recipe-calories">${summaryCalories}</span></p>
                 <p class = "card-text"><span class = "card-recipe-label">Cuisine: </span><span class = "card-recipe-cuisine">${cuisines}</span></p>
                 <p class = "card-text"><span class = "card-recipe-label">Diet: </span><span class = "card-recipe-diet">${diets}</span></p>
                 <p class = "card-text"><span class = "card-recipe-label">Meal Type: </span><span class = "card-recipe-meal-type">${dishTypes}</span></p>
