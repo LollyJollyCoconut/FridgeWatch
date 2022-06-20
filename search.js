@@ -172,8 +172,8 @@ function displayResults() {
 
 		recipeResultsSection.innerHTML +=`<div class = "col" style = "text-transform: capitalize;">
             <div class = "card card-recipe">
-              <img src = ${recipe.image} alt = "${recipe.title}">
-              <div class = "card-body">
+              <img src = ${recipe.image} alt = "${recipe.title}"  data-bs-toggle="modal" data-bs-target="#exampleModal" class = "recipe-card-image">
+              <div class = "card-body card-recipe-body">
                 <h5 class = "card-title card-recipe-title">${recipe.title}</h5>
                 <p class = "card-text"><span class = "card-recipe-label">Ready Time: </span><span class = "card-recipe-ready-time">${recipe.readyInMinutes} Minutes</span></p>
                 <p class = "card-text"><span class = "card-recipe-label">Calories: </span><span class = "card-recipe-calories">${summaryCalories}</span></p>
