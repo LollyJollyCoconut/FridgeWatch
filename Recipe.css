@@ -215,6 +215,7 @@ body{
 .card-recipe-body {
 	height: 276px;
 	overflow-y: scroll;
+	overflow-x: scroll;
 }
 
 .recipe-modal-image {
@@ -227,4 +228,9 @@ body{
 
 .modal-recipe-body {
 	font-weight: 300;
+}
+
+.modal-recipe-icon {
+	width: 35px;
+	margin-right: 7px;
 }
