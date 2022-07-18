@@ -234,3 +234,41 @@ body{
 	width: 35px;
 	margin-right: 7px;
 }
+
+.modal-recipe-instructions {
+	list-style: none;
+	counter-reset: item;
+	padding-left: 0px;
+}
+
+.modal-recipe-step {
+	counter-increment: item;
+	margin-bottom: 5px;
+}
+
+.modal-recipe-step:before {
+	content: counter(item);
+	display: inline-block;
+	margin-right: 10px;
+	background-color: #25d55f;
+	border-radius: 100%;
+	color: |#FFFFFF;
+	width: 1.5em;
+	height: 1.5em;
+	text-align: center;
+}
+
+.modal-recipe-ingredient:checked {
+	background-color: #25d55f !important;
+
+}
+
+.modal-recipe-ingredient:after {
+	box-shadow: 0px 0px 27px 7px rgba(37,213,95,0.89) !important;
+	-webkit-box-shadow: 0px 0px 27px 7px rgba(37,213,95,0.89) !important;
+	-moz-box-shadow: 0px 0px 27px 7px rgba(37,213,95,0.89) !important;
+}
+
+.modal-recipe-ingredient {
+	accent-color: #25d55f !importantS;
+}

@@ -171,7 +171,7 @@ function displayResults() {
 		});
 
 		recipeResultsSection.innerHTML +=`<div class = "col" style = "text-transform: capitalize;">
-            <div class = "card card-recipe">
+            <div class = "card card-recipe" data-recipe-id = "${recipe.id}">
               <img src = ${recipe.image} alt = "${recipe.title}"  data-bs-toggle="modal" data-bs-target="#exampleModal" class = "recipe-card-image">
               <div class = "card-body card-recipe-body">
                 <h5 class = "card-title card-recipe-title">${recipe.title}</h5>
@@ -183,6 +183,6 @@ function displayResults() {
               </div>
             </div>
           </div>`;
-
 	});
+	let recipeCardImagesList = document.getElementsByCLassName("recipe-card-image");
 }
