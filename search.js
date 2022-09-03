@@ -186,3 +186,56 @@ function displayResults() {
 	});
 	let recipeCardImagesList = document.getElementsByCLassName("recipe-card-image");
 }
+function populateRecipeModal(recipe) {
+	let modalRecipeCOntentDiv = document.querySelector(".modal-recipe-content");
+	modalRecipeCOntentDiv.innerHTML = `      <div class="modal-body modal-recipe-body">
+        <img src = "Media/Logo v3.png" alt = "${recipe.title}" class = "recipe-modal-image">
+        <h3 class = "modal-recipe-header">Kinder Egg</h3>
+        <p> <img class = "modal-recipe-icon" src="Icons/Ready Time Icon (1).png"><span class = "card-recipe-label">Ready Time: </span><span class = "modal-recipe-ready-time">${recipe.readyInMinutes} Minutes</span></p>
+        <p><img class = "modal-recipe-icon" src="Icons/Calories Icon (1).png"><span class = "card-recipe-label">Calories: </span><span class = "modal-recipe-calories">${summaryCalories} Calories</span></p>
+        <p><img class = "modal-recipe-icon" src="Icons/Health Icon.png"><span class = "card-recipe-label">Health Score: </span><span class = "modal-recipe-cuisine">${healthScore}</span></p>
+        <p><img class = "modal-recipe-icon" src="Icons/Diet Icon.png"><span class = "card-recipe-label">Diet: </span><span class = "modal-recipe-diet">${diets}</span></p>
+        <p><img class = "modal-recipe-icon" src="Icons/Meal Type Icon.png"><span class = "card-recipe-label">Meal Type: </span><span class = "modal-recipe-meal-type">${dishTypes}</span></p>
+        <p><img class = "modal-recipe-icon" src="Icons/Price Per Serving Icon.png"><span class = "card-recipe-label">Price Per Serving: </span><span class = "modal-recipe-servings">$${pricePerServing}/Serving</span></p>
+        <p><img class = "modal-recipe-icon" src="Icons/Servings Icon.png"><span class = "card-recipe-label">Serving: </span><span class = "modal-recipe-price">${serving}serving</span></p>
+        <p><img class = "modal-recipe-icon" src="Icons/Cuisine Icon.png"><span class = "card-recipe-label">Cuisine </span><span class = "modal-recipe-sustainable">${cuisine}</span></p>
+        <p><img class = "modal-recipe-icon" src="Icons/Sustainability Icon(1).png"><span class = "card-recipe-label">Sustainability: </span><span class = "modal-recipe-health">${sustainable}%</span></p>
+        <p><img class = "modal-recipe-icon" src="Icons/Prep Time Icon.png"><span class = "card-recipe-label">Preparation Minutes: </span><span class = "modal-recipe-preparation">${preparationMinutes} Minutes</span></p>
+        <h4 class = "modal-recipe-header">Ingredients</h4>
+        <div class="form-check modal-recipe-ingredient-div">
+          <input class="form-check-input modal-recipe-ingredient" type="checkbox" value="Ingredient-1" id="Ingredient-1">
+          <label class="form-check-label" for="Ingredient-4">
+            One Bag of Sugar
+          </label>
+        </div>
+        <div class="form-check modal-recipe-ingredient-div">
+          <input class="form-check-input modal-recipe-ingredient" type="checkbox" value="Ingredient-2" id="Ingredient-2">
+          <label class="form-check-label" for="Ingredient-2">
+            One Box of Sugar
+          </label>
+        </div>
+        <div class="form-check modal-recipe-ingredient-div">
+          <input class="form-check-input modal-recipe-ingredient" type="checkbox" value="Ingredient-3" id="Ingredient-3">
+          <label class="form-check-label" for="Ingredient-3">
+            One Barrel of Sugar
+          </label>
+        </div>
+        <div class="form-check modal-recipe-ingredient-div">
+          <input class="form-check-input modal-recipe-ingredient" type="checkbox" value="Ingredient-4" id="Ingredient-4">
+          <label class="form-check-label" for="Ingredient-4">
+            One Boat of Sugar
+          </label>
+        </div>
+        <h4 class = "modal-recipe-header">Instructions</h4>
+        <ol class = "modal-recipe-instructions">
+          <li class = "modal-recipe-step">Put the gas tank inside the pan.</li>
+          <li class = "modal-recipe-step">Add twenty pounds of Gunpowder.</li>
+          <li class = "modal-recipe-step">Poor twenty pounds of oil inside the pan.</li>
+          <li class = "modal-recipe-step">Put five crates of TNT inside the pan.</li>
+          <li class = "modal-recipe-step">Light it up with a match or lighter.</li>
+        </ol>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>`;
+}
+console.log(sampleRecipe);
+populateRecipeModal(sampleRecipe);
