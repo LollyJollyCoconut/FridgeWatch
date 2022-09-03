@@ -219,7 +219,7 @@ body{
 }
 
 .recipe-modal-image {
-	max-width: 100%;
+	width: 100%;
 }
 
 .modal-recipe-header {

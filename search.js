@@ -188,19 +188,45 @@ function displayResults() {
 }
 function populateRecipeModal(recipe) {
 	let modalRecipeCOntentDiv = document.querySelector(".modal-recipe-content");
+	let cuisines = recipe.cuisines.toString().replaceAll(",",", ");
+		if (cuisines == "") {
+		cuisines = "None";
+	}
+	let diets = recipe.diets.toString().replaceAll(",",", ");
+		if (diets == "") {
+		diets = "None";
+	}
+	let dishTypes = recipe.dishTypes.toString().replaceAll(",",", ");
+		if (dishTypes == ""){
+		dishTypes = "none";
+		}
+	let summary = recipe.summary;
+	let summaryptag = document.createElement(`p`);
+	summaryptag.innerHTML = summary;
+	let summarybtags = summaryptag.querySelectorAll("b");
+	let summaryCalories;
+	summarybtags.forEach(tag => {
+		if (tag.innerText.search("calories")!= -1) {
+			summaryCalories = tag.innerText;
+		}
+	});
+	let prepTime = recipe.preparationMinutes;
+	if (prepTime == -1) {
+		prepTime = recipe.readyInMinutes;
+	}
 	modalRecipeCOntentDiv.innerHTML = `      <div class="modal-body modal-recipe-body">
-        <img src = "Media/Logo v3.png" alt = "${recipe.title}" class = "recipe-modal-image">
-        <h3 class = "modal-recipe-header">Kinder Egg</h3>
+        <img src = "${recipe.image}" alt = "${recipe.title}" class = "recipe-modal-image">
+        <h3 class = "modal-recipe-header">${recipe.title}</h3>
         <p> <img class = "modal-recipe-icon" src="Icons/Ready Time Icon (1).png"><span class = "card-recipe-label">Ready Time: </span><span class = "modal-recipe-ready-time">${recipe.readyInMinutes} Minutes</span></p>
-        <p><img class = "modal-recipe-icon" src="Icons/Calories Icon (1).png"><span class = "card-recipe-label">Calories: </span><span class = "modal-recipe-calories">${summaryCalories} Calories</span></p>
-        <p><img class = "modal-recipe-icon" src="Icons/Health Icon.png"><span class = "card-recipe-label">Health Score: </span><span class = "modal-recipe-cuisine">${healthScore}</span></p>
+        <p><img class = "modal-recipe-icon" src="Icons/Calories Icon (1).png"><span class = "card-recipe-label">Calories: </span><span class = "modal-recipe-calories">${summaryCalories}</span></p>
+        <p><img class = "modal-recipe-icon" src="Icons/Health Icon.png"><span class = "card-recipe-label">Health Score: </span><span class = "modal-recipe-cuisine">${recipe.healthScore}</span></p>
         <p><img class = "modal-recipe-icon" src="Icons/Diet Icon.png"><span class = "card-recipe-label">Diet: </span><span class = "modal-recipe-diet">${diets}</span></p>
         <p><img class = "modal-recipe-icon" src="Icons/Meal Type Icon.png"><span class = "card-recipe-label">Meal Type: </span><span class = "modal-recipe-meal-type">${dishTypes}</span></p>
-        <p><img class = "modal-recipe-icon" src="Icons/Price Per Serving Icon.png"><span class = "card-recipe-label">Price Per Serving: </span><span class = "modal-recipe-servings">$${pricePerServing}/Serving</span></p>
-        <p><img class = "modal-recipe-icon" src="Icons/Servings Icon.png"><span class = "card-recipe-label">Serving: </span><span class = "modal-recipe-price">${serving}serving</span></p>
-        <p><img class = "modal-recipe-icon" src="Icons/Cuisine Icon.png"><span class = "card-recipe-label">Cuisine </span><span class = "modal-recipe-sustainable">${cuisine}</span></p>
-        <p><img class = "modal-recipe-icon" src="Icons/Sustainability Icon(1).png"><span class = "card-recipe-label">Sustainability: </span><span class = "modal-recipe-health">${sustainable}%</span></p>
-        <p><img class = "modal-recipe-icon" src="Icons/Prep Time Icon.png"><span class = "card-recipe-label">Preparation Minutes: </span><span class = "modal-recipe-preparation">${preparationMinutes} Minutes</span></p>
+        <p><img class = "modal-recipe-icon" src="Icons/Price Per Serving Icon.png"><span class = "card-recipe-label">Price Per Serving: </span><span class = "modal-recipe-servings">$${recipe.pricePerServing}/Serving</span></p>
+        <p><img class = "modal-recipe-icon" src="Icons/Servings Icon.png"><span class = "card-recipe-label">Serving: </span><span class = "modal-recipe-price">${recipe.servings} serving(s)</span></p>
+        <p><img class = "modal-recipe-icon" src="Icons/Cuisine Icon.png"><span class = "card-recipe-label">Cuisine: </span><span class = "modal-recipe-sustainable">${cuisines}</span></p>
+        <p><img class = "modal-recipe-icon" src="Icons/Sustainability Icon(1).png"><span class = "card-recipe-label">Sustainability: </span><span class = "modal-recipe-health">${recipe.sustainable}</span></p>
+        <p><img class = "modal-recipe-icon" src="Icons/Prep Time Icon.png"><span class = "card-recipe-label">Preparation Minutes: </span><span class = "modal-recipe-preparation">${prepTime} Minutes</span></p>
         <h4 class = "modal-recipe-header">Ingredients</h4>
         <div class="form-check modal-recipe-ingredient-div">
           <input class="form-check-input modal-recipe-ingredient" type="checkbox" value="Ingredient-1" id="Ingredient-1">
