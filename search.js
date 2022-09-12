@@ -146,7 +146,7 @@ searchButton.addEventListener("click", function(event) {
 });
 function displayResults() {
 	recipeResultsSection.innerHTML = "";
-	recipeResultsList.forEach(function(recipe) {
+	recipeResultsList.forEach(function(recipe, index) {
 		let cuisines = recipe.cuisines.toString().replaceAll(",",", ");
 			if (cuisines == "") {
 			cuisines = "None";
@@ -172,7 +172,7 @@ function displayResults() {
 
 		recipeResultsSection.innerHTML +=`<div class = "col" style = "text-transform: capitalize;">
             <div class = "card card-recipe" data-recipe-id = "${recipe.id}">
-              <img src = ${recipe.image} alt = "${recipe.title}"  data-bs-toggle="modal" data-bs-target="#exampleModal" class = "recipe-card-image">
+              <img src = ${recipe.image} alt = "${recipe.title}" data-recipe-index = "${index}" data-recipe-id = "${recipe.id}" data-bs-toggle="modal" data-bs-target="#exampleModal" class = "recipe-card-image">
               <div class = "card-body card-recipe-body">
                 <h5 class = "card-title card-recipe-title">${recipe.title}</h5>
                 <p class = "card-text"><span class = "card-recipe-label">Ready Time: </span><span class = "card-recipe-ready-time">${recipe.readyInMinutes} Minutes</span></p>
@@ -184,7 +184,6 @@ function displayResults() {
             </div>
           </div>`;
 	});
-	let recipeCardImagesList = document.getElementsByCLassName("recipe-card-image");
 }
 function populateRecipeModal(recipe) {
 	let modalRecipeCOntentDiv = document.querySelector(".modal-recipe-content");
@@ -228,40 +227,26 @@ function populateRecipeModal(recipe) {
         <p><img class = "modal-recipe-icon" src="Icons/Sustainability Icon(1).png"><span class = "card-recipe-label">Sustainability: </span><span class = "modal-recipe-health">${recipe.sustainable}</span></p>
         <p><img class = "modal-recipe-icon" src="Icons/Prep Time Icon.png"><span class = "card-recipe-label">Preparation Minutes: </span><span class = "modal-recipe-preparation">${prepTime} Minutes</span></p>
         <h4 class = "modal-recipe-header">Ingredients</h4>
-        <div class="form-check modal-recipe-ingredient-div">
-          <input class="form-check-input modal-recipe-ingredient" type="checkbox" value="Ingredient-1" id="Ingredient-1">
-          <label class="form-check-label" for="Ingredient-4">
-            One Bag of Sugar
-          </label>
-        </div>
-        <div class="form-check modal-recipe-ingredient-div">
-          <input class="form-check-input modal-recipe-ingredient" type="checkbox" value="Ingredient-2" id="Ingredient-2">
-          <label class="form-check-label" for="Ingredient-2">
-            One Box of Sugar
-          </label>
-        </div>
-        <div class="form-check modal-recipe-ingredient-div">
-          <input class="form-check-input modal-recipe-ingredient" type="checkbox" value="Ingredient-3" id="Ingredient-3">
-          <label class="form-check-label" for="Ingredient-3">
-            One Barrel of Sugar
-          </label>
-        </div>
-        <div class="form-check modal-recipe-ingredient-div">
-          <input class="form-check-input modal-recipe-ingredient" type="checkbox" value="Ingredient-4" id="Ingredient-4">
-          <label class="form-check-label" for="Ingredient-4">
-            One Boat of Sugar
-          </label>
-        </div>
+        <div class = "modal-recipe-ingredients-div"></div>
         <h4 class = "modal-recipe-header">Instructions</h4>
         <ol class = "modal-recipe-instructions">
-          <li class = "modal-recipe-step">Put the gas tank inside the pan.</li>
-          <li class = "modal-recipe-step">Add twenty pounds of Gunpowder.</li>
-          <li class = "modal-recipe-step">Poor twenty pounds of oil inside the pan.</li>
-          <li class = "modal-recipe-step">Put five crates of TNT inside the pan.</li>
-          <li class = "modal-recipe-step">Light it up with a match or lighter.</li>
         </ol>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>`;
+  let stepsList = recipe.analyzedInstructions[0].steps;
+  let instructionsOl = modalRecipeCOntentDiv.querySelector(".modal-recipe-instructions");
+  stepsList.forEach(function(stepListItem){
+  	let currentStep = document.createElement('li');
+  	currentStep.innerText = stepListItem.step;
+  	currentStep.classList.add("modal-recipe-step");
+  	instructionsOl.append(currentStep);
+  });
 }
-console.log(sampleRecipe);
-populateRecipeModal(sampleRecipe);
+let recipeModalElement = document.getElementById('exampleModal');
+recipeModalElement.addEventListener('show.bs.modal',function(event){
+	let clickedOnImage = event.relatedTarget;
+	let recipeIndex = clickedOnImage.dataset.recipeIndex;
+	let clickedOnRecipe = recipeResultsList[recipeIndex];
+	let recipeApiUrl = `https://api.spoonacular.com/recipes/${clickedOnImage.dataset.recipeId}/information?includeNutrition=true`;
+	populateRecipeModal(clickedOnRecipe);
+});
