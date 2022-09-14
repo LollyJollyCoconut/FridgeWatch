@@ -84,7 +84,7 @@ ingredientsList.forEach(function(ingredient){
 let searchForm = document.querySelector('form');
 searchForm.addEventListener('submit', function (event) {
 	searchButton.click();
-	event.preventDeafault();
+	event.preventDefault();
 	event.stopPropagation();
 }, false);
 maxReadyTimeSlider.addEventListener("change",function(event) {
@@ -139,6 +139,11 @@ searchButton.addEventListener("click", function(event) {
 		apiResponse = data;
 		recipeResultsList = apiResponse.results;
 		displayResults();
+		recipeResultsSection.scrollIntoView({
+			behavior: "smooth",
+			block: "start",
+			inline: "nearest"
+		});
 	})
 	.catch(err => {
 		console.error(err);
@@ -185,7 +190,7 @@ function displayResults() {
           </div>`;
 	});
 }
-function populateRecipeModal(recipe) {
+function populateRecipeModal(recipe, recipeIngredientsList, recipeNutrition) {
 	let modalRecipeCOntentDiv = document.querySelector(".modal-recipe-content");
 	let cuisines = recipe.cuisines.toString().replaceAll(",",", ");
 		if (cuisines == "") {
@@ -231,6 +236,7 @@ function populateRecipeModal(recipe) {
         <h4 class = "modal-recipe-header">Instructions</h4>
         <ol class = "modal-recipe-instructions">
         </ol>
+        <p><span class = "card-recipe-label">Credits: </span><span class = "modal-recipe-credit"><a href = "${recipe.sourceUrl}">${recipe.creditsText}</a></span></p>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>`;
   let stepsList = recipe.analyzedInstructions[0].steps;
@@ -241,12 +247,44 @@ function populateRecipeModal(recipe) {
   	currentStep.classList.add("modal-recipe-step");
   	instructionsOl.append(currentStep);
   });
+  let ingredientsDiv = modalRecipeCOntentDiv.querySelector(".modal-recipe-ingredients-div");
+  let ingredientsHTML = "";
+  recipeIngredientsList.forEach(function(ingredientObject){
+  	let ingredientString = ingredientObject.name.replaceAll(' ','-');
+  	ingredientsHTML += `<div class="form-check modal-recipe-ingredient-div">
+	    <input class="form-check-input modal-recipe-ingredient" type="checkbox" value="${ingredientString}" id="${ingredientString}">
+	    <label class="form-check-label" for="${ingredientString}">
+	      ${ingredientObject.original}
+	    </label>
+	  </div>`;
+  });
+  ingredientsDiv.innerHTML = ingredientsHTML;
+
 }
 let recipeModalElement = document.getElementById('exampleModal');
 recipeModalElement.addEventListener('show.bs.modal',function(event){
 	let clickedOnImage = event.relatedTarget;
 	let recipeIndex = clickedOnImage.dataset.recipeIndex;
 	let clickedOnRecipe = recipeResultsList[recipeIndex];
-	let recipeApiUrl = `https://api.spoonacular.com/recipes/${clickedOnImage.dataset.recipeId}/information?includeNutrition=true`;
-	populateRecipeModal(clickedOnRecipe);
+	let apiResponseIngredients;
+	let ingredientsListFromRecipe;
+	let nutritionFromRecipe;
+	let recipeApiUrl = `https://api.spoonacular.com/recipes/${clickedOnImage.dataset.recipeId}/information?apiKey=${apikey}&includeNutrition=true`;
+	fetch(recipeApiUrl, {
+		"method": "GET"
+	})
+	.then(response => {
+		console.log("done getting ingredients");
+		return response.json();
+	})
+	.then(data => {
+		console.log(data);
+		apiResponseIngredients = data;
+		ingredientsListFromRecipe = apiResponseIngredients.extendedIngredients;
+		nutritionFromRecipe = apiResponseIngredients.nutrition;
+		populateRecipeModal(clickedOnRecipe, ingredientsListFromRecipe, nutritionFromRecipe);
+	})
+	.catch(err => {
+		console.error(err);
+	});
 });
