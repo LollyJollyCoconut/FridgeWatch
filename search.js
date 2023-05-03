@@ -28,7 +28,7 @@ categoriesList.forEach(function(category) {
 			<button class = "btn btn-outline-dark show-ingredients-button col-12" type = "button" data-bs-toggle = "collapse" data-bs-target = "#collapse-${categoryClass}" aria-expanded = "false" aria-controls = "collapse-${categoryClass}">
 				<span class = "ingredients-category-heading">${category} </span>
 				<span class = "down-arrow">╲╱</span>
-				<span class = "up-arrow">╱╲</span>
+				<span class = "up-arrow">╱╲</span>w
 			</button>
 		</div>
 		<ul id="collapse-${categoryClass}" class="list-inline col-12 collapse"> </ul>
