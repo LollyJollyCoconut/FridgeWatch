@@ -285,21 +285,63 @@ body{
 
 .Law-bg {
 	backdrop-filter: blur(1000px);
+	background-image: url("Media/kiwi.jpg");
+	position:  absolute;
+	top: 75px;
+	left: 0;
+	bottom: 0px;
+	right: 0;
+	overflow-y: scroll;
+	background-size: cover;
+	background-position: center bottom;
 }
 
 .Law-bg-inner {
-/*	height:100vh;*/
+	/*	height:100vh;*/
 	width: 100vw;
-	backdrop-filter: blur(4px);
+	/*	backdrop-filter: blur(4px);*/
+	background-color: rgba(255, 255, 255, 0.25);
 }
-.DiscoverBG{
+.DiscoverBG {
 	position:  absolute;
 	top: 75px;
 	bottom: 189px;
 	left: 0;
 	right: 0;
 	overflow-y: scroll;
-	background-size: 100%;
+	background-size: cover;
 	background-image:  url("Media/bread.jpg");
 	
+}
+
+.camera-bg {
+	position:  absolute;
+	top: 75px;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	overflow-y: scroll;
+	background-size: cover;
+	background-position: center center;
+	background-image:  url("Media/vegan.jpg");
+}
+
+.big-box {
+	background-color: rgba(255, 255, 255, 0.75);
+	font-size: 22.5px;
+	padding: 40px;
+	margin-top: 115px !important;
+}
+
+.Order-bg {
+	backdrop-filter: blur(1000px);
+	background-image: url("Media/oranges.jpg");
+	position:  absolute;
+	top: 75px;
+	left: 0;
+	bottom: 0px;
+	right: 0;
+	overflow-y: scroll;
+	background-size: cover;
+	background-position: center bottom;
 }
