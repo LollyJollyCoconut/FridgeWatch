@@ -275,6 +275,7 @@ body{
 .about-page-bg {
 	background-image: url("Media/Pancakes.jpg");
 	background-size: 100%;
+	background-position: center 25%;
 }
 
 .about-text {
@@ -284,16 +285,16 @@ body{
 }
 
 .Law-bg {
-	backdrop-filter: blur(1000px);
-	background-image: url("Media/kiwi.jpg");
+/*	backdrop-filter: blur(1000px);*/
+	background-image: url("Media/E.jpg");
 	position:  absolute;
 	top: 75px;
 	left: 0;
 	bottom: 0px;
 	right: 0;
 	overflow-y: scroll;
-	background-size: cover;
-	background-position: center bottom;
+	background-size: contain;
+	background-position: center center;
 }
 
 .Law-bg-inner {
@@ -311,6 +312,7 @@ body{
 	overflow-y: scroll;
 	background-size: cover;
 	background-image:  url("Media/bread.jpg");
+	background-position: center center;
 	
 }
 
@@ -334,8 +336,8 @@ body{
 }
 
 .Order-bg {
-	backdrop-filter: blur(1000px);
-	background-image: url("Media/oranges.jpg");
+/*	backdrop-filter: blur(1000px);*/
+	background-image: url("Media/L.jpg");
 	position:  absolute;
 	top: 75px;
 	left: 0;
