@@ -347,3 +347,25 @@ body{
 	background-size: cover;
 	background-position: center bottom;
 }
+
+.intolerances-checkbox:focus {
+	border-color: #25d45f;
+	box-shadow: 0 0 0 0.25rem rgba(37, 212, 95, .25);
+}
+
+.intolerances-checkbox:checked {
+	background-color: #25d45f;
+	border-color: #25d45f;
+}
+
+.advanced-filter-slider::-webkit-slider-thumb, .advanced-filter-slider::-moz-range-thumb {
+	background-color: #25d45f;
+}
+
+.advanced-filter-slider:focus::-webkit-slider-thumb, .advanced-filter-slider:focus::-moz-range-thumb {
+	box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(37, 212, 95, 0.25);
+}
+
+.advanced-filter-slider::-moz-range-thumb:active {
+	background-color: rgba(37, 212, 95, 0.25);
+}
