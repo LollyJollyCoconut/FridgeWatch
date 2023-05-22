@@ -16,6 +16,10 @@ let dietsList = ["gluten free", "ketogenic", "vegetarian", "lacto vegetarian", "
 let dietSpan = document.querySelector(".included-filters-diet");
 let dietForm = document.querySelector("#collapse-filter-diet");
 let dietValue = null;
+let intolerancesList = ["dairy", "egg", "gluten", "grain", "peanut", "seafood", "sesame", "shellfish", "soy", "sulfite", "tree nut", "wheat"];
+let intolerancesSpan = document.querySelector(".included-filters-intolerances");
+let intolerancesForm = document.querySelector("#collapse-filter-intolerances");
+let intolerancesValues = null;
 let includedIngredientsList = [];
 let excludedIngredientsList = [];
 let includedIngredientsSpan = document.querySelector(".included-ingredients");
@@ -28,7 +32,7 @@ categoriesList.forEach(function(category) {
 			<button class = "btn btn-outline-dark show-ingredients-button col-12" type = "button" data-bs-toggle = "collapse" data-bs-target = "#collapse-${categoryClass}" aria-expanded = "false" aria-controls = "collapse-${categoryClass}">
 				<span class = "ingredients-category-heading">${category} </span>
 				<span class = "down-arrow">╲╱</span>
-				<span class = "up-arrow">╱╲</span>w
+				<span class = "up-arrow">╱╲</span>
 			</button>
 		</div>
 		<ul id="collapse-${categoryClass}" class="list-inline col-12 collapse"> </ul>
@@ -101,7 +105,7 @@ dietsList.forEach(function(diet) {
 
 	let dietClass = diet.replaceAll(` `,`-`);
 	dietForm.innerHTML += `<div class = "form-check">
-		<input class = "form-check-input"type = "radio" name = "filter-diet" id = "${dietClass}">
+		<input class = "form-check-input forms-radio"type = "radio" name = "filter-diet" id = "${dietClass}">
 		<label class = "form-check-label" for = "${dietClass}">
 			${diet}
 		</label>
@@ -112,6 +116,18 @@ dietForm.addEventListener("click", function(event) {
 		dietSpan.innerText = `Diet: ${event.target.id}`;
 		dietValue = event.target.id.replaceAll(`-`,`%20`);
 	}
+});
+intolerancesList.forEach(function(intolerance){
+	let intoleranceClass = intolerance.replaceAll(" ","-");
+	intolerancesForm.innerHTML += `<div class="form-check">
+ 	 	<input class="form-check-input intolerances-checkbox" type="checkbox" value="${intoleranceClass}" id="${intoleranceClass}">
+ 	 	<label class="form-check-label" for="${intoleranceClass}">
+ 			${intolerance}
+  	</label>
+  </div>`;
+});
+intolerancesForm.addEventListener("click", function(event){
+
 });
 searchButton.addEventListener("click", function(event) {
 	apiURL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apikey}&addRecipeInformation=true&number=100`;
