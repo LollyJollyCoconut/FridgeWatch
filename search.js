@@ -14,12 +14,13 @@ let maxCaloriesSpan = document.querySelector(".included-filters-max-calories");
 let maxCaloriesSpan2 = document.querySelector(".filter-max-calories-value");
 let dietsList = ["gluten free", "ketogenic", "vegetarian", "lacto vegetarian", "ovo vegetarian", "vegan", "pescetarian", "paleo", "primal", "low fodmap", "whole30"];
 let dietSpan = document.querySelector(".included-filters-diet");
-let dietForm = document.querySelector("#collapse-filter-diet");
+let dietForm = document.querySelector("#filter-diet-div");
 let dietValue = null;
 let intolerancesList = ["dairy", "egg", "gluten", "grain", "peanut", "seafood", "sesame", "shellfish", "soy", "sulfite", "tree nut", "wheat"];
 let intolerancesSpan = document.querySelector(".included-filters-intolerances");
-let intolerancesForm = document.querySelector("#collapse-filter-intolerances");
+let intolerancesForm = document.querySelector("#filter-intolerances-div");
 let intolerancesValues = null;
+let cuisinesList = ["African", "Asian", "American", "British", "Cajun", "Caribbean", "Chinese", "Eastern Europe", "European", "French", "German", "Greek", "Indian", "Irish", "Italian", "Japanese", "Jewish", "Korea", "Latin American", "Mediterranean", "Mexican", "Middle Eastern", "Nordic", "Southern", "Spanish", "Thai", "Vietnamese"];
 let includedIngredientsList = [];
 let excludedIngredientsList = [];
 let includedIngredientsSpan = document.querySelector(".included-ingredients");
@@ -104,7 +105,7 @@ maxCaloriesSlider.addEventListener("change", function(event) {
 dietsList.forEach(function(diet) {
 
 	let dietClass = diet.replaceAll(` `,`-`);
-	dietForm.innerHTML += `<div class = "form-check">
+	dietForm.innerHTML += `<div class = "form-check col-4">
 		<input class = "form-check-input forms-radio"type = "radio" name = "filter-diet" id = "${dietClass}">
 		<label class = "form-check-label" for = "${dietClass}">
 			${diet}
@@ -119,15 +120,24 @@ dietForm.addEventListener("click", function(event) {
 });
 intolerancesList.forEach(function(intolerance){
 	let intoleranceClass = intolerance.replaceAll(" ","-");
-	intolerancesForm.innerHTML += `<div class="form-check">
- 	 	<input class="form-check-input intolerances-checkbox" type="checkbox" value="${intoleranceClass}" id="${intoleranceClass}">
+	intolerancesForm.innerHTML += `<div class="form-check col-4">
+ 	 	<input class="form-check-input intolerances-checkbox" type="checkbox" value="${intoleranceClass}" name="filter-intolerances" id="${intoleranceClass}">
  	 	<label class="form-check-label" for="${intoleranceClass}">
  			${intolerance}
   	</label>
   </div>`;
 });
 intolerancesForm.addEventListener("click", function(event){
-
+	if(event.target.getAttribute(`name`) == "filter-intolerances"){
+		let selectedIntolerancesCheckboxesList = document.querySelectorAll('input[name="filter-intolerances"]:checked');
+		intolerancesValues = "";
+		selectedIntolerancesCheckboxesList.forEach(function (checkbox){
+			intolerancesValues += `${checkbox.value},`;
+		});
+		intolerancesValues = intolerancesValues.slice(0, -1);
+		intolerancesSpan.innerText = `Intolerances: ${intolerancesValues.replaceAll(",", ", ").replaceAll("-", " ")}`;
+		intolerancesValues = intolerancesValues.replaceAll("-", "%20");
+	}
 });
 searchButton.addEventListener("click", function(event) {
 	apiURL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apikey}&addRecipeInformation=true&number=100`;
@@ -142,6 +152,9 @@ searchButton.addEventListener("click", function(event) {
 	}
 	if (dietValue != null) {
 		apiURL += `&diet=${dietValue}`;
+	}
+	if (intolerancesValues != null && intolerancesValues != "") {
+		apiURL += `&intolerances=${intolerancesValues}`;
 	}
 	fetch(apiURL, {
 		"method": "GET"
