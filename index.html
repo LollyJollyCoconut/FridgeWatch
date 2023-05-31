@@ -61,6 +61,7 @@
             <p class = "included-filters included-filters-max-calories"></p>
             <p class = "included-filters included-filters-diet"></p>
             <p class = "included-filters included-filters-intolerances"></p>
+            <p class = "included-filters included-filters-meal-types"></p>
             <p class = "excluded-filters-heading"><b>Exclude Filters:</b><span class = "excluded-filters"></span></p>
           </section>
           <section class = "row advanced-search-buttons-section col-md-10 offset-md-1">
@@ -118,7 +119,9 @@
             </button>
           </div>
           <div id = "collapse-filter-diet" class = "list-inline col-md-6 collapse">
-            <div id = "filter-diet-div" class = "row px-4"></div>
+            <div id = "filter-diet-div" class = "row px-4">
+              
+            </div>
           </div>
         </section>
         <section class = "filter-intolerances col-md-6 px-2">
@@ -137,7 +140,12 @@
           <div class = "ingredients-category-header advanced-category-header advanced-category-header-with-buttons">
             <button class = "btn btn-outline-dark collapsing-button col-12" type = "button" data-bs-toggle = "collapse" data-bs-target = "#collapse-filter-meal-types" aria-expanded = "false" aria-controls = "collapse-filter-meal-types">
               <span class = "ingredients-category-heading">Meal Type</span>
+              <span class = "down-arrow">╲╱</span>
+              <span class = "up-arrow">╱╲</span>
             </button>
+          </div>
+          <div id = "collapse-filter-meal-types" class = "list-inline col-md-6 collapse">
+            <div id = "filter-meal-types-div" class = "row px-4"></div>
           </div>
         </section>
       </section>

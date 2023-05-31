@@ -20,6 +20,10 @@ let intolerancesList = ["dairy", "egg", "gluten", "grain", "peanut", "seafood", 
 let intolerancesSpan = document.querySelector(".included-filters-intolerances");
 let intolerancesForm = document.querySelector("#filter-intolerances-div");
 let intolerancesValues = null;
+let mealTypesList = ["main course", "side dish", "dessert", "appetizer", "salad", "bread", "breakfast", "soup", "beverage", "sauce", "marinade", "fingerfood", "snack", "drink"];
+let mealTypesSpan = document.querySelector(".included-filters-meal-types");
+let mealTypesForm = document.querySelector("#filter-meal-types-div");
+let mealTypeValue = null;
 let cuisinesList = ["African", "Asian", "American", "British", "Cajun", "Caribbean", "Chinese", "Eastern Europe", "European", "French", "German", "Greek", "Indian", "Irish", "Italian", "Japanese", "Jewish", "Korea", "Latin American", "Mediterranean", "Mexican", "Middle Eastern", "Nordic", "Southern", "Spanish", "Thai", "Vietnamese"];
 let includedIngredientsList = [];
 let excludedIngredientsList = [];
@@ -114,7 +118,7 @@ dietsList.forEach(function(diet) {
 });
 dietForm.addEventListener("click", function(event) {
 	if (event.target.getAttribute(`name`) == `filter-diet`) {
-		dietSpan.innerText = `Diet: ${event.target.id}`;
+		dietSpan.innerText = `Diet: ${event.target.id.replaceAll("-", " ")}`;
 		dietValue = event.target.id.replaceAll(`-`,`%20`);
 	}
 });
@@ -139,6 +143,21 @@ intolerancesForm.addEventListener("click", function(event){
 		intolerancesValues = intolerancesValues.replaceAll("-", "%20");
 	}
 });
+mealTypesList.forEach(function(mealType){
+	let mealTypeClass = mealType.replaceAll(` `,`-`);
+	mealTypesForm.innerHTML += `<div class = "form-check col-4">
+		<input class = "form-check-input forms-radio" type = "radio" name = "filter-meal-types" id= "${mealTypeClass}">
+		<label class = "form-check-label" for = "${mealTypeClass}">
+			${mealType}
+		</label>
+	</div>`;
+});
+mealTypesForm.addEventListener("click", function(event){
+	if (event.target.getAttribute(`name`) == `filter-meal-types`){
+		mealTypesSpan.innerText = `Meal Type: ${event.target.id.replaceAll("-", " ")}`;
+		mealTypeValue = event.target.id.replaceAll(`-`, `%20`);
+	}
+});
 searchButton.addEventListener("click", function(event) {
 	apiURL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apikey}&addRecipeInformation=true&number=100`;
 	if (searchText.value != "") {
@@ -155,6 +174,9 @@ searchButton.addEventListener("click", function(event) {
 	}
 	if (intolerancesValues != null && intolerancesValues != "") {
 		apiURL += `&intolerances=${intolerancesValues}`;
+	}
+	if (mealTypeValue != null) {
+		apiURL += `&type=${mealTypeValue}`;
 	}
 	fetch(apiURL, {
 		"method": "GET"
