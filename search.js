@@ -25,6 +25,11 @@ let mealTypesSpan = document.querySelector(".included-filters-meal-types");
 let mealTypesForm = document.querySelector("#filter-meal-types-div");
 let mealTypeValue = null;
 let cuisinesList = ["African", "Asian", "American", "British", "Cajun", "Caribbean", "Chinese", "Eastern Europe", "European", "French", "German", "Greek", "Indian", "Irish", "Italian", "Japanese", "Jewish", "Korea", "Latin American", "Mediterranean", "Mexican", "Middle Eastern", "Nordic", "Southern", "Spanish", "Thai", "Vietnamese"];
+let includedCuisinesSpan = document.querySelector(".included-filters-cuisines");
+let excludedCuisinesSpan = document.querySelector(".excluded-filters-cuisines");
+let cuisinesForm = document.querySelector("#collapse-filter-cuisines");
+let includedCuisinesList = [];
+let excludedCuisinesList = [];
 let includedIngredientsList = [];
 let excludedIngredientsList = [];
 let includedIngredientsSpan = document.querySelector(".included-ingredients");
@@ -81,7 +86,7 @@ ingredientsList.forEach(function(ingredient){
 		includedIngredientsList.forEach(function(ingredient) {
 			includedIngredientsSpan.innerText += ` ${ingredient},`;
 		});
-		excludedIngredientsSpan.innerText = excludedIngredientsSpan.innerText.slice(0,-1);
+		includedIngredientsSpan.innerText = includedIngredientsSpan.innerText.slice(0,-1);
 
 		excludedIngredientsSpan.innerText = "";
 		excludedIngredientsList.forEach(function(ingredient) {
@@ -157,6 +162,52 @@ mealTypesForm.addEventListener("click", function(event){
 		mealTypesSpan.innerText = `Meal Type: ${event.target.id.replaceAll("-", " ")}`;
 		mealTypeValue = event.target.id.replaceAll(`-`, `%20`);
 	}
+});
+cuisinesList.forEach(function(cuisine){
+	let cuisineClass = cuisine.replaceAll(' ','-');
+	let cuisineUL = document.querySelector("#cuisines-ul");
+	let li = document.createElement("li");
+	li.classList.add("list-inline-item");
+	let button = document.createElement("button");
+	button.classList = "btn btn-outline-success ingredient-button neutral-cuisine";
+	button.type = "button";
+	button.innerText = cuisine;
+	li.appendChild(button);
+	cuisineUL.appendChild(li);
+	button.addEventListener("click", function(event) {
+		if (button.classList.contains("exclude-cuisine")) {
+			button.classList.remove("exclude-cuisine");
+			button.classList.remove("btn-danger");
+			button.classList.add("neutral-cuisine");
+			button.classList.add("btn-outline-success");
+			excludedCuisinesList = excludedCuisinesList.filter(cuisine => cuisine != event.target.innerText);
+		}
+		else if (button.classList.contains("include-cuisine")){
+			button.classList.remove("include-cuisine");
+			button.classList.remove("btn-success");
+			button.classList.add("exclude-cuisine");
+			button.classList.add("btn-danger");
+			includedCuisinesList = includedCuisinesList.filter(cuisine => cuisine != event.target.innerText);
+			excludedCuisinesList.push(event.target.innerText);
+		}
+		else {
+			button.classList.remove("neutral-cuisine");
+			button.classList.remove("btn-outline-success");
+			button.classList.add("include-cuisine");
+			button.classList.add("btn-success");
+			includedCuisinesList.push(event.target.innerText);
+		}
+		includedCuisinesSpan.innerText = "Cuisines: ";
+		includedCuisinesList.forEach(function(cuisineItem) {
+			includedCuisinesSpan.innerText += ` ${cuisineItem},`;
+		});
+		includedCuisinesSpan.innerText = includedCuisinesSpan.innerText.slice(0,-1);
+		excludedCuisinesSpan.innerText = "Cuisines: ";
+		excludedCuisinesList.forEach(function(cuisineItem) {
+			excludedCuisinesSpan.innerText += ` ${cuisineItem},`;
+		});
+		excludedCuisinesSpan.innerText = excludedCuisinesSpan.innerText.slice(0,-1);
+	});
 });
 searchButton.addEventListener("click", function(event) {
 	apiURL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apikey}&addRecipeInformation=true&number=100`;

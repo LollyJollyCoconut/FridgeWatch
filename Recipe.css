@@ -114,21 +114,21 @@ body{
 	width: 100%;
 }
 
-.ingredients-category-list > ul > li > button {
+.ingredients-category-list > ul > li > button, .cuisine-ul > li > button {
 	margin: 1rem 0rem 0rem 0rem;
 }
 
-.search-ingredients-button, .neutral-ingredient, .neutral-button {
+.search-ingredients-button, .neutral-ingredient, .neutral-button, .neutral-cuisine {
 	color: #000;
 	border-color: #000;
 }
 
-.search-ingredients-button:hover, .neutral-ingredient:hover, .neutral-button:hover {
+.search-ingredients-button:hover, .neutral-ingredient:hover, .neutral-button:hover, .neutral-cuisine:hover {
 	background-color: #000;
 	border-color: #000;
 }
 
-.search-ingredients-button:focus, .neutral-ingredient:focus, .neutral-button:focus {
+.search-ingredients-button:focus, .neutral-ingredient:focus, .neutral-button:focus, .neutral-cuisine:focus {
 	box-shadow: 0 0 0 0.25rem #00000080;
 }
 
@@ -137,17 +137,17 @@ body{
 	box-shadow: 0 0 0 0.25rem #074c5e80;
 }
 
-.include-ingredient {
+.include-ingredient, .include-cuisine {
 	background-color: #137457;
 	border-color: #137457;
 }
 
-.include-ingredient:hover {
+.include-ingredient:hover, .include-cuisine:hover {
 	background-color: #1a8c5a;
 	border-color: #1a8c5a;
 }
 
-.exclude-ingredient {
+.exclude-ingredient, .exclude-cuisine {
 	text-decoration: line-through 0.2em;
 	background-color: #a61d2a;
 	border-color: #a61d2a;

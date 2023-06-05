@@ -62,7 +62,9 @@
             <p class = "included-filters included-filters-diet"></p>
             <p class = "included-filters included-filters-intolerances"></p>
             <p class = "included-filters included-filters-meal-types"></p>
+            <p class = "included-filters included-filters-cuisines"></p>
             <p class = "excluded-filters-heading"><b>Exclude Filters:</b><span class = "excluded-filters"></span></p>
+            <p class = "excluded-filters excluded-filters-cuisines"></p>
           </section>
           <section class = "row advanced-search-buttons-section col-md-10 offset-md-1">
             <button class = "btn btn-outline-dark show-ingredients-button col-sm-5 offset-sm-1 collapsed neutral-ingredient" type = "button" data-bs-toggle = "collapse" data-bs-target = "#ingredients-search-section" aria-expanded = "false" aria-controls = "ingredients-search-section">
@@ -146,6 +148,18 @@
           </div>
           <div id = "collapse-filter-meal-types" class = "list-inline col-md-6 collapse">
             <div id = "filter-meal-types-div" class = "row px-4"></div>
+          </div>
+        </section>
+        <section class = "filter-cuisines col-md-6 px-2">
+          <div class = "ingredients-category-header advanced-category-header advanced-category-header-with-buttons">
+            <button class = "btn btn-outline-dark collapsing-button col-12" type = "button" data-bs-toggle = "collapse" data-bs-target = "#collapse-filter-cuisines" aria-expanded = "false" aria-controls = "collapse-filter-cuisines">
+              <span class = "ingredients-category-heading">Cuisine</span>
+              <span class = "down-arrow">╲╱</span>
+              <span class = "up-arrow">╱╲</span>
+            </button>
+          </div>
+          <div id = "collapse-filter-cuisines" class = "list-inline col-md-6 collapse">
+            <ul id = "cuisines-ul" class = "list-inline col-12"></ul>
           </div>
         </section>
       </section>
