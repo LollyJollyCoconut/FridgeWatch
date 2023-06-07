@@ -114,7 +114,11 @@ body{
 	width: 100%;
 }
 
-.ingredients-category-list > ul > li > button, .cuisine-ul > li > button {
+.ingredients-category-list > ul > li > button {
+	margin: 1rem 0rem 0rem 0rem;
+}
+
+.cuisine-button {
 	margin: 1rem 0rem 0rem 0rem;
 }
 

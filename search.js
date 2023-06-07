@@ -30,10 +30,14 @@ let excludedCuisinesSpan = document.querySelector(".excluded-filters-cuisines");
 let cuisinesForm = document.querySelector("#collapse-filter-cuisines");
 let includedCuisinesList = [];
 let excludedCuisinesList = [];
+let includedCuisinesValues = "";
+let excludedCuisinesValues = "";
 let includedIngredientsList = [];
 let excludedIngredientsList = [];
 let includedIngredientsSpan = document.querySelector(".included-ingredients");
 let excludedIngredientsSpan = document.querySelector(".excluded-ingredients");
+let includedIngredientsValues = "";
+let excludedIngredientsValues = "";
 let ingredientsSearchSection = document.getElementById("ingredients-search-section");
 categoriesList.forEach(function(category) {
 	let categoryClass = category.replaceAll(' ','-');
@@ -83,16 +87,22 @@ ingredientsList.forEach(function(ingredient){
 			includedIngredientsList.push(event.target.innerText);
 		}
 		includedIngredientsSpan.innerText = "";
+		includedIngredientsValues = "";
 		includedIngredientsList.forEach(function(ingredient) {
 			includedIngredientsSpan.innerText += ` ${ingredient},`;
+			includedIngredientsValues += `${ingredient},`;
 		});
 		includedIngredientsSpan.innerText = includedIngredientsSpan.innerText.slice(0,-1);
+		includedIngredientsValues = includedIngredientsValues.slice(0,-1);
 
 		excludedIngredientsSpan.innerText = "";
+		excludedIngredientsValues = "";
 		excludedIngredientsList.forEach(function(ingredient) {
 			excludedIngredientsSpan.innerText += ` ${ingredient},`;
+			excludedIngredientsValues += `${ingredient},`;
 		});
 		excludedIngredientsSpan.innerText = excludedIngredientsSpan.innerText.slice(0,-1);
+		excludedIngredientsValues = excludedIngredientsValues.slice(0,-1);
 	});
 });
 let searchForm = document.querySelector('form');
@@ -169,7 +179,7 @@ cuisinesList.forEach(function(cuisine){
 	let li = document.createElement("li");
 	li.classList.add("list-inline-item");
 	let button = document.createElement("button");
-	button.classList = "btn btn-outline-success ingredient-button neutral-cuisine";
+	button.classList = "btn btn-outline-success ingredient-button neutral-cuisine cuisine-button";
 	button.type = "button";
 	button.innerText = cuisine;
 	li.appendChild(button);
@@ -197,15 +207,31 @@ cuisinesList.forEach(function(cuisine){
 			button.classList.add("btn-success");
 			includedCuisinesList.push(event.target.innerText);
 		}
-		includedCuisinesSpan.innerText = "Cuisines: ";
+		if (includedCuisinesList.length > 0) {
+			includedCuisinesSpan.innerText = "Cuisines: ";
+		}
+		else {
+			includedCuisinesSpan.innerText = "";
+		}
+		includedCuisinesValues = "";
 		includedCuisinesList.forEach(function(cuisineItem) {
-			includedCuisinesSpan.innerText += ` ${cuisineItem},`;
+			includedCuisinesSpan.innerText += ` ${cuisineItem}`;
+			includedCuisinesValues += `${cuisineItem},`;
 		});
+		includedCuisinesValues = includedCuisinesValues.slice(0, -1);
 		includedCuisinesSpan.innerText = includedCuisinesSpan.innerText.slice(0,-1);
-		excludedCuisinesSpan.innerText = "Cuisines: ";
+		if (excludedCuisinesList.length > 0) {
+			excludedCuisinesSpan.innerText = "Cuisines: ";
+		}
+		else {
+			excludedCuisinesSpan.innerText = "";
+		}
+		excludedCuisinesValues = "";
 		excludedCuisinesList.forEach(function(cuisineItem) {
 			excludedCuisinesSpan.innerText += ` ${cuisineItem},`;
+			excludedCuisinesValues += `${cuisineItem},`;
 		});
+		excludedCuisinesValues = excludedCuisinesValues.slice(0, -1);
 		excludedCuisinesSpan.innerText = excludedCuisinesSpan.innerText.slice(0,-1);
 	});
 });
@@ -229,6 +255,19 @@ searchButton.addEventListener("click", function(event) {
 	if (mealTypeValue != null) {
 		apiURL += `&type=${mealTypeValue}`;
 	}
+	if (includedCuisinesList.length > 0) {
+		apiURL += `&cuisine=${includedCuisinesValues}`;
+	}
+	if (excludedCuisinesList.length > 0) {
+		apiURL += `&excludeCuisine=${excludedCuisinesValues}`;
+	}
+	if (includedIngredientsList.length > 0) {
+		apiURL += `&includeIngredients=${includedIngredientsValues}`;
+	}
+	if (excludedIngredientsList.length > 0) {
+		apiURL += `&excludeIngredients=${excludedIngredientsValues}`;
+	}
+
 	fetch(apiURL, {
 		"method": "GET"
 	})
