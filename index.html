@@ -27,7 +27,6 @@
       collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
       <div class="collapse navbar-collapse" id="navbarsExample04">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
@@ -160,6 +159,19 @@
           </div>
           <div id = "collapse-filter-cuisines" class = "list-inline col-md-6 collapse">
             <ul id = "cuisines-ul" class = "list-inline col-12"></ul>
+          </div>
+        </section>
+        <section class = "filter-max-sugar-slider col-md-6 px-2">
+          <div class = "ingredients-category-header advanced-category-header">
+            <button class = "btn btn-outline-dark collapsing-button col-12" type = "button" data-bs-toggle = "collapse" data-bs-target = "#collapse-filter-max-sugar" aria-expanded = "false" aria-controls = "collapse-filter-max-sugar">
+              <span class = "ingredients-category-heading">Max Sugar</span>
+              <span class = "down-arrow">╲╱</span>
+              <span class = "up-arrow">╱╲</span>
+            </button>
+          </div>
+          <div id = "collapse-filter-max-sugar" class = "list-inline col-md-6 collapse">
+            <label for = "max-sugar-slider" class = "form-label">Maximum Sugar for Recipe: <span class = "filter-max-sugar-value"></span></label>
+            <input type = "range" class = "form-range advanced-filter-slider" value = "1000" min = "0" max = "100" step = "1" id = "max-sugar-slider">
           </div>
         </section>
       </section>
