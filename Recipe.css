@@ -15,7 +15,7 @@ header{
 }
 
 .navbar {
-	padding: 10;
+	padding: 10px;
 }
 
 .navbar-dark .navbar-nav .nav-link{
@@ -341,17 +341,30 @@ body{
 
 .camera-page-container {
 /*	max-height: 100vh - 80px - 264px;*/
-	background-color: #000000;
 	position: absolute;
 	top: 21px;
 	bottom: 189px;
 /*	width: 100%;*/
 	left: 0px;
-	right: -10px;
+	right: 12px;
 }
 
 .sidebar {
-	background-color: blue;
+	padding: 0px;
+	background-color: rgba(255, 255, 255, 0.75);
+}
+
+.camera-ingredients-filter-section {
+	height: 75%;
+	padding: 16px;
+	border-left: 3px solid #212529;
+}
+
+.camera-buttons-section {
+	height: 25%;
+	padding: 16px;
+	border-left: 3px solid #212529;
+	border-top: 3px solid #212529;
 }
 
 #video {
