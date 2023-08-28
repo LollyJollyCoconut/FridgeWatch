@@ -362,9 +362,13 @@ body{
 
 .camera-buttons-section {
 	height: 25%;
-	padding: 16px;
+	padding: 8% 16px;
 	border-left: 3px solid #212529;
 	border-top: 3px solid #212529;
+}
+
+.button-one, .button-two {
+	background-color: #2cb356;
 }
 
 #video {
