@@ -3,6 +3,7 @@ let message = document.getElementById("message");
 let logo = document.getElementById("camera-logo");
 let takePhotoButton = document.querySelector(".button-one");
 let cameraThing = document.getElementById("camera-parent-div");
+let canvas = document.getElementById("canvas");
 if (navigator.mediaDevices.getUserMedia) {
 	navigator.mediaDevices.getUserMedia({ video: true })
 		.then(function (stream) {
@@ -19,7 +20,17 @@ if (navigator.mediaDevices.getUserMedia) {
 }
 
 takePhotoButton.addEventListener("click", function(event) {
-
+	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+	let image_data_url = canvas.toDataURL('image/jpeg');
+	console.log(image_data_url);
+	video.classList.add("hide");
+	canvas.classList.remove("hide");
+	takePhotoButton.classList.add("btn-danger");
+	takePhotoButton.classList.remove("btn-success");
+	setTimeout(() => {
+		takePhotoButton.classList.remove("btn-danger");
+		takePhotoButton.classList.add("btn-success");
+	}, 2000);
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 	// In this section, we set the user authentication, user and app ID, model details, and the URL
 	// of the image we want as an input. Change these strings to run your own example.
@@ -27,7 +38,7 @@ takePhotoButton.addEventListener("click", function(event) {
 
 	// Your PAT (Personal Access Token) can be found in the portal under Authentification
 	const PAT = 'b3f978358e3449239618d3f90b9e098b';
-	// Specify the correct user_id/app_id pairings
+	// Specify the correct user_id/app_id pairingss
 	// Since you're making inferences outside your app's scope
 	const USER_ID = 'clarifai';       
 	const APP_ID = 'main';
@@ -49,7 +60,7 @@ takePhotoButton.addEventListener("click", function(event) {
 	        {
 	            "data": {
 	                "image": {
-	                    "url": IMAGE_URL
+	                    "base64": image_data_url
 	                }
 	            }
 	        }

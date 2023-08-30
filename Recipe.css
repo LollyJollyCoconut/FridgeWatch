@@ -371,10 +371,19 @@ body{
 	background-color: #2cb356;
 }
 
-#video {
+.butin-one {
+	background-color: #ff3d41;
+}
+
+#video, #canvas {
 	-webkit-transform:scaleX(-1);
 	transform: scaleX(-1);
 	max-width: 75%;
+}
+
+#canvas {
+	margin: auto auto;
+	padding: 158px;
 }
 
 .Order-bg {
