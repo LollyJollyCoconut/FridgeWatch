@@ -4,6 +4,9 @@ let logo = document.getElementById("camera-logo");
 let takePhotoButton = document.querySelector(".button-one");
 let cameraThing = document.getElementById("camera-parent-div");
 let canvas = document.getElementById("canvas");
+let analyzedIngredientsList = [];
+let analyzedIngredientsHTML = "";
+let ingredientsSectionElement = document.querySelector(".camera-ingredients-filter-section");
 if (navigator.mediaDevices.getUserMedia) {
 	navigator.mediaDevices.getUserMedia({ video: true })
 		.then(function (stream) {
@@ -21,7 +24,7 @@ if (navigator.mediaDevices.getUserMedia) {
 
 takePhotoButton.addEventListener("click", function(event) {
 	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-	let image_data_url = canvas.toDataURL('image/jpeg');
+	let image_data_url = canvas.toDataURL('image/jpeg').split(";base64,")[1];
 	console.log(image_data_url);
 	video.classList.add("hide");
 	canvas.classList.remove("hide");
@@ -82,7 +85,32 @@ takePhotoButton.addEventListener("click", function(event) {
 
 	fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
 	    .then(response => response.text())
-	    .then(result => console.log(result))
+	    .then(result => {
+	    	console.log(result);
+	    	analyzedIngredientsList = [
+				{"name": "spaghetti",
+				"value": 0.9787878 },
+				{"name": "cheese",
+				"value": 0.878767 },
+				{"name": "tomato",
+				"value": 0.5675765 },
+				{"name": "avocado",
+				"value": 0.423521 },
+				{"name": "flour",
+				"value": 0.213424 }
+			];
+	    	// analyzecIngredientsList = JSON.parse(result);
+	    	// analyzedIngredientsList = result.outputs[0].data.concepts;
+	    	console.log(analyzedIngredientsList);
+		})
 	    .catch(error => console.log('error', error));
 
 });
+function displayAnalyzedIngredients() {
+	analyzedIngredientsHTML = "";
+	analyzedIngredientsList.forEach((ingredient) => {
+		analyzedIngredientsHTML += `<button type="button" class="btn btn-success">${ingredient.name} - ${ingredient.value}</button>`;
+	});
+	ingredientsSectionElement.innerHTML = analyzedIngredientsHTML;
+};
+displayAnalyzedIngredients();
