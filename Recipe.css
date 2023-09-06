@@ -360,6 +360,10 @@ body{
 	border-left: 3px solid #212529;
 }
 
+#ingredients-analyzed-div {
+	overflow-y: scroll;
+}
+
 .camera-buttons-section {
 	height: 25%;
 	padding: 8% 16px;

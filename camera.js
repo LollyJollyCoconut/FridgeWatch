@@ -5,7 +5,7 @@ let takePhotoButton = document.querySelector(".button-one");
 let cameraThing = document.getElementById("camera-parent-div");
 let canvas = document.getElementById("canvas");
 let analyzedIngredientsList = [];
-let analyzedIngredientsHTML = "";
+// let analyzedIngredientsHTML = "";
 let ingredientsSectionElement = document.querySelector(".camera-ingredients-filter-section");
 if (navigator.mediaDevices.getUserMedia) {
 	navigator.mediaDevices.getUserMedia({ video: true })
@@ -99,18 +99,25 @@ takePhotoButton.addEventListener("click", function(event) {
 				{"name": "flour",
 				"value": 0.213424 }
 			];
-	    	// analyzecIngredientsList = JSON.parse(result);
-	    	// analyzedIngredientsList = result.outputs[0].data.concepts;
-	    	console.log(analyzedIngredientsList);
+	    	return JSON.parse(result);
 		})
+
+		.then(newResult => {
+	    	analyzedIngredientsList = newResult["outputs"][0]["data"]["concepts"];
+	    	console.log(analyzedIngredientsList);
+	    	displayAnalyzedIngredients();
+		})
+
 	    .catch(error => console.log('error', error));
 
 });
 function displayAnalyzedIngredients() {
-	analyzedIngredientsHTML = "";
+	let analyzedIngredientsHTML = `<div class="d-grid gap-2"id="ingredients-analyzed-div">`;
 	analyzedIngredientsList.forEach((ingredient) => {
-		analyzedIngredientsHTML += `<button type="button" class="btn btn-success">${ingredient.name} - ${ingredient.value}</button>`;
+		let percentage = Math.round(ingredient.value*100);
+		// analyzedIngredientsHTML += `<button type="button" class="btn btn-success">${ingredient.name} - ${percentage}%</button>`;
+		analyzedIngredientsHTML += `<button class="btn ingredient-button include-ingredient btn-success" type="button" value = "${ingredient.name}">${ingredient.name} - ${percentage}%</button>`;
 	});
+	analyzedIngredientsHTML += "</div>";
 	ingredientsSectionElement.innerHTML = analyzedIngredientsHTML;
 };
-displayAnalyzedIngredients();
