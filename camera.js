@@ -7,6 +7,13 @@ let canvas = document.getElementById("canvas");
 let analyzedIngredientsList = [];
 // let analyzedIngredientsHTML = "";
 let ingredientsSectionElement = document.querySelector(".camera-ingredients-filter-section");
+let includedIngredientsList = [];
+let excludedIngredientsList = [];
+let recipeResultsSection = document.getElementById("recipe-results-container");
+let recipeResultsList = [];
+let searchButton = document.querySelector(".button-two");
+let includedIngredientsValues = "";
+let excludedIngredientsValues = "";
 if (navigator.mediaDevices.getUserMedia) {
 	navigator.mediaDevices.getUserMedia({ video: true })
 		.then(function (stream) {
@@ -112,12 +119,133 @@ takePhotoButton.addEventListener("click", function(event) {
 
 });
 function displayAnalyzedIngredients() {
-	let analyzedIngredientsHTML = `<div class="d-grid gap-2"id="ingredients-analyzed-div">`;
+	// let analyzedIngredientsHTML = `<div class="d-grid gap-2"id="ingredients-analyzed-div">`;
+	let buttonGridDiv = document.createElement("div");
+	buttonGridDiv.classList = "d-grid gap-2";
+	buttonGridDiv.id = "ingredients-analyzed-div";
 	analyzedIngredientsList.forEach((ingredient) => {
 		let percentage = Math.round(ingredient.value*100);
 		// analyzedIngredientsHTML += `<button type="button" class="btn btn-success">${ingredient.name} - ${percentage}%</button>`;
-		analyzedIngredientsHTML += `<button class="btn ingredient-button include-ingredient btn-success" type="button" value = "${ingredient.name}">${ingredient.name} - ${percentage}%</button>`;
+		let button = document.createElement("button");
+		button.classList = "btn btn-outline-success ingredient-button neutral-ingredient";
+		button.type = "button";
+		button.innerText = `${ingredient.name} - ${percentage}`;
+		button.value = ingredient.name;
+		buttonGridDiv.appendChild(button);
+		button.addEventListener("click", function(event) {
+			if (button.classList.contains("exclude-ingredient")) {
+				button.classList.remove("exclude-ingredient");
+				button.classList.remove("btn-danger");
+				button.classList.add("neutral-ingredient");
+				button.classList.add("btn-outline-success");
+				excludedIngredientsList = excludedIngredientsList.filter(ingredient => ingredient != event.target.value);
+			}
+			else if (button.classList.contains("include-ingredient")){
+				button.classList.remove("include-ingredient");
+				button.classList.remove("btn-success");
+				button.classList.add("exclude-ingredient");
+				button.classList.add("btn-danger");
+				includedIngredientsList = includedIngredientsList.filter(ingredient => ingredient != event.target.value);
+				excludedIngredientsList.push(event.target.value);
+			}
+			else {
+				button.classList.remove("neutral-ingredient");
+				button.classList.remove("btn-outline-success");
+				button.classList.add("include-ingredient");
+				button.classList.add("btn-success");
+				includedIngredientsList.push(event.target.value);
+			}
+			includedIngredientsValues = "";
+			includedIngredientsList.forEach(function(ingredient) {
+				includedIngredientsValues += `${ingredient},`;
+			});
+			includedIngredientsValues = includedIngredientsValues.slice(0,-1);
+
+			excludedIngredientsValues = "";
+			excludedIngredientsList.forEach(function(ingredient) {
+				excludedIngredientsValues += `${ingredient},`;
+			});
+			excludedIngredientsValues = excludedIngredientsValues.slice(0,-1);
+		});
+		// analyzedIngredientsHTML += `<button class="btn ingredient-button neutral-ingredient btn-outline-success" type="button" value = "${ingredient.name}">${ingredient.name} = ${percentage}%</button>`;
 	});
-	analyzedIngredientsHTML += "</div>";
-	ingredientsSectionElement.innerHTML = analyzedIngredientsHTML;
+	ingredientsSectionElement.appendChild(buttonGridDiv);
+	// ingredientsSectionElement.innerHTML = analyzedIngredientsHTML;
 };
+
+searchButton.addEventListener("click", function(event) {
+	apiURL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apikey}&addRecipeInformation=true&number=100`;
+	// if (searchText.value != "") {
+	// 	apiURL += `&query=${searchText.value}`;
+	// }
+	if (includedIngredientsList.length > 0) {
+		apiURL += `&includeIngredients=${includedIngredientsValues}`;
+	}
+	if (excludedIngredientsList.length > 0) {
+		apiURL += `&excludeIngredients=${excludedIngredientsValues}`;
+	}
+
+	fetch(apiURL, {
+		"method": "GET"
+	})
+	.then(response => {
+		console.log("done");
+		return response.json();
+	})
+	.then(data => {
+		console.log(data);
+		apiResponse = data;
+		recipeResultsList = apiResponse.results;
+		displayResults();
+		recipeResultsSection.scrollIntoView({
+			behavior: "smooth",
+			block: "start",
+			inline: "nearest"
+		});
+	})
+	.catch(err => {
+		console.error(err);
+	});
+});
+
+function displayResults() {
+	recipeResultsSection.innerHTML = "";
+	recipeResultsList.forEach(function(recipe, index) {
+		let cuisines = recipe.cuisines.toString().replaceAll(",",", ");
+			if (cuisines == "") {
+			cuisines = "None";
+		}
+		let diets = recipe.diets.toString().replaceAll(",",", ");
+			if (diets == "") {
+			diets = "None";
+		}
+		let dishTypes = recipe.dishTypes.toString().replaceAll(",",", ");
+			if (dishTypes == ""){
+			dishTypes = "none";
+		}
+		let summary = recipe.summary;
+		let summaryptag = document.createElement(`p`);
+		summaryptag.innerHTML = summary;
+		let summarybtags = summaryptag.querySelectorAll("b");
+		let summaryCalories;
+		summarybtags.forEach(tag => {
+			if (tag.innerText.search("calories")!= -1) {
+				summaryCalories = tag.innerText;
+			}
+		});
+
+		recipeResultsSection.innerHTML +=`<div class = "col" style = "text-transform: capitalize;">
+            <div class = "card card-recipe" data-recipe-id = "${recipe.id}">
+              <img src = ${recipe.image} alt = "${recipe.title}" data-recipe-index = "${index}" data-recipe-id = "${recipe.id}" data-bs-toggle="modal" data-bs-target="#exampleModal" class = "recipe-card-image">
+              <div class = "card-body card-recipe-body">
+                <h5 class = "card-title card-recipe-title">${recipe.title}</h5>
+                <p class = "card-text"><span class = "card-recipe-label">Ready Time: </span><span class = "card-recipe-ready-time">${recipe.readyInMinutes} Minutes</span></p>
+                <p class = "card-text"><span class = "card-recipe-label">Calories: </span><span class = "card-recipe-calories">${summaryCalories}</span></p>
+                <p class = "card-text"><span class = "card-recipe-label">Cuisine: </span><span class = "card-recipe-cuisine">${cuisines}</span></p>
+                <p class = "card-text"><span class = "card-recipe-label">Diet: </span><span class = "card-recipe-diet">${diets}</span></p>
+                <p class = "card-text"><span class = "card-recipe-label">Meal Type: </span><span class = "card-recipe-meal-type">${dishTypes}</span></p>
+              </div>
+            </div>
+          </div>`;
+	});
+}
