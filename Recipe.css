@@ -10,7 +10,7 @@ header{
 	height:  70px;
 }
 
-#camera-logo, .about-logo {
+.about-logo {
 	max-width: 300px;
 }
 
@@ -368,13 +368,6 @@ body{
 	overflow-y: scroll;
 }
 
-.camera-buttons-section {
-	height: 25%;
-	padding: 8% 16px;
-	border-left: 3px solid #212529;
-	border-top: 3px solid #212529;
-}
-
 .button-one, .button-two {
 	background-color: #2cb356;
 }
@@ -398,6 +391,13 @@ body{
 
 .camera-message {
 	font-size: 34px;
+	width: 100%;
+	padding: 30px;
+}
+
+#camera-logo {
+	max-width: 50%;
+	margin-top: 25px;
 }
 
 .whole-camera-page-area {
@@ -432,19 +432,42 @@ body{
 .camera-bottom-sidebar {
 	background-color: rgba(0,0,255,0.5);
 	height: 25%;
+	padding: 8% 16px;
+	border-left: 3px solid #212529;
+	border-top: 3px solid #212529;
 }
 
 @media(max-width: 768px) {
 	.whole-camera-page-area {
 		flex-direction: column-reverse;
+		overflow-y: scroll;
+		align-items: flex-start;
 	}
 	.camera-main-area {
 		width: 100%;
-		height: 80%;
+		height: auto;
+		overflow-y: auto;
 	}
 	.camera-sidebar {
 		width: 100%;
-		height: 20%;
+		height: auto;
+	}
+	.camera-top-sidebar {
+		height: auto;
+		overflow-y: auto;
+	}
+	.camera-bottom-sidebar {
+		height: auto;
+		border-top: none;
+		border-left: none;
+	}
+	.camera-message {
+		font-size: 24px;
+		padding: 15px;
+	}
+	#camera-logo {
+		margin-top: 0px;
+		max-width: 100%;
 	}
 }
 

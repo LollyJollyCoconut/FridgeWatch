@@ -1,6 +1,5 @@
 let video = document.getElementById("video");
-let message = document.getElementById("message");
-let logo = document.getElementById("camera-logo");
+let message = document.querySelector(".camera-message");
 let takePhotoButton = document.querySelector(".button-one");
 let cameraThing = document.getElementById("camera-parent-div");
 let canvas = document.getElementById("canvas");
@@ -19,7 +18,6 @@ if (navigator.mediaDevices.getUserMedia) {
 		.then(function (stream) {
 			video.srcObject = stream;
 			message.classList.add("hide");
-			logo.classList.add("hide");
 			video.classList.remove("hide");
 			cameraThing.classList.remove("big-box");
 		})
