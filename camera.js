@@ -232,7 +232,7 @@ function displayResults() {
 			}
 		});
 
-		recipeResultsSection.innerHTML +=`<div class = "col" style = "text-transform: capitalize;">
+		recipeResultsSection.innerHTML +=`<div class = "col-4" style = "text-transform: capitalize;">
             <div class = "card card-recipe" data-recipe-id = "${recipe.id}">
               <img src = ${recipe.image} alt = "${recipe.title}" data-recipe-index = "${index}" data-recipe-id = "${recipe.id}" data-bs-toggle="modal" data-bs-target="#exampleModal" class = "recipe-card-image">
               <div class = "card-body card-recipe-body">

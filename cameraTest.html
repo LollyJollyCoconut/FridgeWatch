@@ -53,6 +53,9 @@
         </div>
         <canvas id = "canvas" width = "500" height = "375" class = "hide"></canvas>
         <video id = "video" class = "align-middle hide" height = "100%" width = "100%" autoplay> </video>
+        <div class = "row">
+          <div id = "recipe-results-container"></div>
+      </div>
       </div>
       <aside class = "camera-sidebar">
         <!-- <p>This is the sidebar.</p> -->
@@ -75,6 +78,12 @@
       <a href = "terms-and-conditions.html" class = "footer-link">Terms & Conditions</a>
     </div>
   </footer>
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" draggable = "true" id = "recipe-modal">
+      <div class="modal-content modal-recipe-content">
+      </div>
+    </div>
+  </div>
   <script src = "config.js"></script>
   <script src="Bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src = "footer.js"></script>
