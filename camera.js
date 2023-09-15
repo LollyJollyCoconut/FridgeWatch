@@ -167,6 +167,7 @@ function displayAnalyzedIngredients() {
 		});
 		// analyzedIngredientsHTML += `<button class="btn ingredient-button neutral-ingredient btn-outline-success" type="button" value = "${ingredient.name}">${ingredient.name} = ${percentage}%</button>`;
 	});
+	ingredientsSectionElement.innerHTML = "";
 	ingredientsSectionElement.appendChild(buttonGridDiv);
 	// ingredientsSectionElement.innerHTML = analyzedIngredientsHTML;
 };
@@ -232,7 +233,7 @@ function displayResults() {
 			}
 		});
 
-		recipeResultsSection.innerHTML +=`<div class = "col-4" style = "text-transform: capitalize;">
+		recipeResultsSection.innerHTML +=`<div class = "col-sm-6 col-md-4 col-lg-3" style = "text-transform: capitalize;">
             <div class = "card card-recipe" data-recipe-id = "${recipe.id}">
               <img src = ${recipe.image} alt = "${recipe.title}" data-recipe-index = "${index}" data-recipe-id = "${recipe.id}" data-bs-toggle="modal" data-bs-target="#exampleModal" class = "recipe-card-image">
               <div class = "card-body card-recipe-body">

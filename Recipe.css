@@ -6,7 +6,7 @@ header{
 }
 
 .logo-img{
-	width:  70px;
+/*	width:  70px;*/
 	height:  70px;
 }
 
@@ -402,7 +402,7 @@ body{
 }
 
 .whole-camera-page-area {
-	background-color: rgba(0,0,0,0.5);
+	background-color: rgba(255,255,255,0.5);
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
@@ -412,26 +412,22 @@ body{
 }
 
 .camera-main-area {
-	background-color: rgba(255,0,0,0.5);
 	text-align: center;
 	width: 75%;
 	overflow-y: scroll;
 }
 
 .camera-sidebar {
-	background-color: rgba(0,255,255,0.5);
 	width: 25%;
 	padding: 0px;
 }
 
 .camera-top-sidebar {
-	background-color: rgba(0,255,0,0.5);
 	height: 75%;
 	overflow-y: scroll;
 }
 
 .camera-bottom-sidebar {
-	background-color: rgba(0,0,255,0.5);
 	height: 25%;
 	padding: 8% 16px;
 	border-left: 3px solid #212529;
