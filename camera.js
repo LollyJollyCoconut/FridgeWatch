@@ -1,10 +1,8 @@
 let video = document.getElementById("video");
 let message = document.querySelector(".camera-message");
 let takePhotoButton = document.querySelector(".button-one");
-let cameraThing = document.getElementById("camera-parent-div");
 let canvas = document.getElementById("canvas");
 let analyzedIngredientsList = [];
-// let analyzedIngredientsHTML = "";
 let ingredientsSectionElement = document.querySelector(".camera-ingredients-filter-section");
 let includedIngredientsList = [];
 let excludedIngredientsList = [];
@@ -13,13 +11,14 @@ let recipeResultsList = [];
 let searchButton = document.querySelector(".button-two");
 let includedIngredientsValues = "";
 let excludedIngredientsValues = "";
+let showCameraButton = document.querySelector(".button-three")
 if (navigator.mediaDevices.getUserMedia) {
 	navigator.mediaDevices.getUserMedia({ video: true })
 		.then(function (stream) {
 			video.srcObject = stream;
 			message.classList.add("hide");
 			video.classList.remove("hide");
-			cameraThing.classList.remove("big-box");
+			takePhotoButton.classList.remove("hide");
 		})
 		.catch(function (error) {
 			console.log("Something went wrong");
@@ -35,9 +34,14 @@ takePhotoButton.addEventListener("click", function(event) {
 	canvas.classList.remove("hide");
 	takePhotoButton.classList.add("btn-danger");
 	takePhotoButton.classList.remove("btn-success");
+	takePhotoButton.disabled = true;
 	setTimeout(() => {
 		takePhotoButton.classList.remove("btn-danger");
 		takePhotoButton.classList.add("btn-success");
+		takePhotoButton.disabled = false;
+		takePhotoButton.classList.add("hide");
+		searchButton.classList.remove("hide");
+		showCameraButton.classList.remove("hide");
 	}, 2000);
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 	// In this section, we set the user authentication, user and app ID, model details, and the URL
@@ -117,13 +121,13 @@ takePhotoButton.addEventListener("click", function(event) {
 
 });
 function displayAnalyzedIngredients() {
-	// let analyzedIngredientsHTML = `<div class="d-grid gap-2"id="ingredients-analyzed-div">`;
+	includedIngredientsList = [];
+	excludedIngredientsList = [];
 	let buttonGridDiv = document.createElement("div");
 	buttonGridDiv.classList = "d-grid gap-2";
 	buttonGridDiv.id = "ingredients-analyzed-div";
 	analyzedIngredientsList.forEach((ingredient) => {
 		let percentage = Math.round(ingredient.value*100);
-		// analyzedIngredientsHTML += `<button type="button" class="btn btn-success">${ingredient.name} - ${percentage}%</button>`;
 		let button = document.createElement("button");
 		button.classList = "btn btn-outline-success ingredient-button neutral-ingredient";
 		button.type = "button";
@@ -345,4 +349,16 @@ recipeModalElement.addEventListener('show.bs.modal',function(event){
 	.catch(err => {
 		console.error(err);
 	});
+});
+showCameraButton.addEventListener("click", function(event) {
+	searchButton.classList.add("hide");
+	showCameraButton.classList.add("hide");
+	takePhotoButton.classList.remove("hide");
+	canvas.classList.add("hide");
+	video.classList.remove("hide");
+	recipeResultsSection.innerHTML = "";
+	recipeResultsList = [];
+	ingredientsSectionElement.innerHTML = "";
+	includedIngredientsList = [];
+	excludedIngredientsList = [];
 });
