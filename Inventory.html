@@ -1,24 +1,25 @@
 <!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>About</title>
+    <title>Inventory</title>
     <link rel = "icon" type = "image/x-icon" href = "Media/Favicon.ico">
     <!-- Bootstrap core CSS -->
     <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
-    <<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;600;700&family=Montserrat:wght@300&display=swap" rel="stylesheet">
+
     <!-- Custom styles -->
     <link href="Recipe.css" rel="stylesheet">
 </head>
-<body class = "about-page-bg">
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" aria-label="Fourth navbar example">
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" aria-label="navigation menu">
     <div class="container-fluid">
       <a class="navbar-brand" href="index.html">
         <img class = "logo-img" src = "Media/Logo v3.png" alt="FridgeWatch">
@@ -27,6 +28,7 @@
       collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarsExample04">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
@@ -45,25 +47,52 @@
       </div>
     </div>
   </nav>
-  <main class = "container-fluid gx-0">
-    <section class = "row">
-      <div class = "col-md-6 offset-md-3 mt-5 about-text">
-        <p>This website uses a camera to scan which items are in your fridge and/or their expiry dates.</p>
-        <p>Based on what the camera sees, this website then uses an API to return a list of possible recipe suggestions for you to cook with these ingredients.</p>
-        <p>You can also filter the results based on your preferences.</p>
-        <img src="Media/Logo v3.png" alt = "Beautiful Logo Photo" class = "mx-auto d-block about-logo">
+  <div class = "container-fluid gx-0 DiscoverBG">
+    <header class = "row m-3">
+      <div class = "col-12">
+        <h1>Inventory</h1>
       </div>
-    </section>
-    <footer class = "row footer gx-0">
+    </header>
+    <main class = "row m-3">
+      <section class = "col-6 inventory-section">
+        <div class = "row">
+          <input class = "form-control me-2 add-ingredients-text" type = "text" placeholder = "Add an Ingredient" aria-label = "Add Ingredient Text">
+          <button class = "btn btn-outline-success add-ingredient-button" type = "button">Add Ingredient</button>
+        </div>
+        <div class = "row inventory-list">
+          <ul>
+            <li>Cheese</li>
+            <li>Tomato</li>
+            <li>Basil</li>
+          </ul>
+        </div>
+      </section>
+      <section class = "col-6 results-section">
+        <div class = "row row-cols-1 row-cols-md-3 row-cols-lg-4 results-cards-container">
+        </div>
+      </section>
+    </main>
+  </div>
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" draggable = "true" id = "recipe-modal">
+    <div class="modal-content modal-recipe-content">
+    </div>
+  </div>
+</div>
+  <footer class = "row footer gx-0">
       <div class = "offset-md-3 col-md-6">
         <p>Copyright ©️ 2021-<span id="copyright-current-year"></span> Daniel Peng All Rights Reserved</p>
-        <a href = "privacy policy.html" class = "footer-link">Privacy Policy</a>
+           <a href = "privacy policy.html" class = "footer-link">Privacy Policy</a>
         <br>
         <a href = "terms-and-conditions.html" class = "footer-link">Terms & Conditions</a>
       </div>
     </footer>
-  </main>
   <script src="Bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src = "footer.js"></script>
+  <script src = "config.js"></script>
+  <script src = "ingredientsList.js"></script>
+  <script src = "sampleRecipe.js"></script>
+  <script src = "Inventory.js"></script>
 </body>
 </html>

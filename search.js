@@ -1,4 +1,4 @@
-let searchButton = document.querySelector(".search-ingredients-button");
+ let searchButton = document.querySelector(".search-ingredients-button");
 let searchText = document.querySelector(".search-ingredients-text");
 let apiURL;
 let apiResponse;
@@ -31,7 +31,7 @@ let mealTypeValue = null;
 let cuisinesList = ["African", "Asian", "American", "British", "Cajun", "Caribbean", "Chinese", "Eastern Europe", "European", "French", "German", "Greek", "Indian", "Irish", "Italian", "Japanese", "Jewish", "Korea", "Latin American", "Mediterranean", "Mexican", "Middle Eastern", "Nordic", "Southern", "Spanish", "Thai", "Vietnamese"];
 let includedCuisinesSpan = document.querySelector(".included-filters-cuisines");
 let excludedCuisinesSpan = document.querySelector(".excluded-filters-cuisines");
-let cuisinesForm = document.querySelector("#collapse-filter-cuisines");
+let cuisinesForm = document.querySelector("#collapse-filter-cuisines"); 
 let includedCuisinesList = [];
 let excludedCuisinesList = [];
 let includedCuisinesValues = "";
