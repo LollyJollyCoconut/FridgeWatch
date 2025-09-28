@@ -1,5 +1,4 @@
 <!doctype html>
-<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -47,28 +46,47 @@
       </div>
     </div>
   </nav>
-  <div class = "container-fluid gx-0 DiscoverBG">
-    <header class = "row m-3">
-      <div class = "col-12">
-        <h1>Inventory</h1>
-      </div>
-    </header>
-    <main class = "row m-3">
-      <section class = "col-6 inventory-section">
+  <div class = "container-fluid gx-0 Inventory-BG">
+    <main class = "row m-3 inventory-main-content">
+      <section class = "col-12 col-sm-4 inventory-section">
         <div class = "row">
-          <input class = "form-control me-2 add-ingredients-text" type = "text" placeholder = "Add an Ingredient" aria-label = "Add Ingredient Text">
-          <button class = "btn btn-outline-success add-ingredient-button" type = "button">Add Ingredient</button>
+          <h1>Inventory</h1>
+        </div>
+        <div class = "row">
+          <div class = "col-md-8 pe-md-0">
+            <div class = "position-relative">
+              <input class = "form-control me-2 add-ingredients-text w-100" type = "text" placeholder = "Search/Select Ingredient" aria-label = "Add Ingredient Text" id = "ingredient-search-box" autocomplete = "off">
+              <div id = "ingredient-suggestions" class = "list-group position-absolute w-100 z-3" style = "max-height: 200px; overflow-y: auto;"></div>
+            </div>
+          </div>
+          <div class = "col-md-4 ps-md-1">
+            <button class = "btn btn-outline-success add-ingredient-button w-100 mt-2 mt-md-0 mb-3 ms-0 ms-md-2" type = "button">Add</button>
+          </div>
+        </div>
+        <div class = "row">
+          <div class = "col-12">
+            <button class = "btn btn-outline-success suggest-recipes-button w-100" type = "button">Suggest Recipes</button>
+          </div>
         </div>
         <div class = "row inventory-list">
-          <ul>
-            <li>Cheese</li>
-            <li>Tomato</li>
-            <li>Basil</li>
+          <ul class="list-group list-group-flush pe-0">
+            <li class="list-group-item d-flex justify-content-between align-items-center inventory-list-item">
+              Cras justo odio
+              <button class = "btn btn-outline-danger delete-ingredeint-button ms-2" type = "button">x</button>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center inventory-list-item">
+              Dapibus ac facilisis in
+              <span class="badge badge-primary badge-pill">2</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center inventory-list-item">
+              Morbi leo risus
+              <span class="badge badge-primary badge-pill">1</span>
+            </li>
           </ul>
         </div>
       </section>
-      <section class = "col-6 results-section">
-        <div class = "row row-cols-1 row-cols-md-3 row-cols-lg-4 results-cards-container">
+      <section class = "col-12 col-sm-8 results-section">
+        <div class = "row row-cols-1 row-cols-md-2 row-cols-lg-3 results-cards-container">
         </div>
       </section>
     </main>

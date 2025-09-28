@@ -427,7 +427,7 @@ recipeModalElement.addEventListener('show.bs.modal',function(event){
 		apiResponseIngredients = data;
 		ingredientsListFromRecipe = apiResponseIngredients.extendedIngredients;
 		nutritionFromRecipe = apiResponseIngredients.nutrition;
-		populateRecipeModal(clickedOnRecipe, ingredientsListFromRecipe, nutritionFromRecipe);
+		populateRecipeModal(data, ingredientsListFromRecipe, nutritionFromRecipe);
 	})
 	.catch(err => {
 		console.error(err);

@@ -1,9 +1,19 @@
 let apiURL;
-let apiURL;
 let apiResponse;
 let recipeResultsList;
 let recipeResultsSection = document.querySelector(".results-cards-container");
-getAndShowRandomRecipes();
+const addIngredientInputText = document.querySelector(".add-ingredients-text");
+const addIngredientButton = document.querySelector(".add-ingredient-button");
+const suggestRecipesButton = document.querySelector(".suggest-recipes-button");
+const inventoryUI = document.querySelector(".inventory-list-u");
+const ingredientSuggestionDropDownDiv = document.querySelector("#ingredient-suggestions");
+const inventoryResultsSection = document.querySelector(".inventory-results-section");
+function addIngredient() {
+	const ingredientText = addIngredientInputText.value.trim().toLowerCase();
+	if (!ingredientText) {
+		return;
+	}
+}
 
 function getAndShowRandomRecipes() {
 	apiURL = `https://api.spoonacular.com/recipes/random?apiKey=${apikey}&addRecipeInformation=true&number=100`;
@@ -58,8 +68,8 @@ function displayResults() {
 		});
 
 		recipeResultsSection.innerHTML +=`<div class = "col" style = "text-transform: capitalize;">
-            <div class = "card card-recipe" data-recipe-id = "${recipe.id}">
-              <img src = ${recipe.image} alt = "${recipe.title}" data-recipe-index = "${index}" data-recipe-id = "${recipe.id}" data-bs-toggle="modal" data-bs-target="#exampleModal" class = "recipe-card-image">
+            <div class = "card card-recipe" data-recipe-id = "${recipe.id}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <img src = ${recipe.image} alt = "${recipe.title}" data-recipe-index = "${index}" data-recipe-id = "${recipe.id}" class = "recipe-card-image">
               <div class = "card-body card-recipe-body">
                 <h5 class = "card-title card-recipe-title">${recipe.title}</h5>
                 <p class = "card-text"><span class = "card-recipe-label">Ready Time: </span><span class = "card-recipe-ready-time">${recipe.readyInMinutes} Minutes</span></p>
@@ -164,7 +174,7 @@ recipeModalElement.addEventListener('show.bs.modal',function(event){
 		apiResponseIngredients = data;
 		ingredientsListFromRecipe = apiResponseIngredients.extendedIngredients;
 		nutritionFromRecipe = apiResponseIngredients.nutrition;
-		populateRecipeModal(clickedOnRecipe, ingredientsListFromRecipe, nutritionFromRecipe);
+		populateRecipeModal(data, ingredientsListFromRecipe, nutritionFromRecipe);
 	})
 	.catch(err => {
 		console.error(err);
