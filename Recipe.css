@@ -551,7 +551,7 @@ body{
 }
 
 .inventory-list-item {
-	background-color: rgba(255, 255, 255, 0.67);
+	background-color: rgba(255, 255, 255, 0.80);
 }
 
 .delete-ingredient-button {
@@ -607,4 +607,11 @@ body{
 		order: 2;
 		padding-left: 0;
 	}
+}
+
+.ingredient-checkbox {
+	margin-top: 0;
+	width: 1.25em;
+	height: 1.25em;
+	vertical-align: middle;
 }
