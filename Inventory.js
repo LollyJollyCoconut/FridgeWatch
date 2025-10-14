@@ -5,15 +5,39 @@ let recipeResultsSection = document.querySelector(".results-cards-container");
 const addIngredientInputText = document.querySelector(".add-ingredients-text");
 const addIngredientButton = document.querySelector(".add-ingredient-button");
 const suggestRecipesButton = document.querySelector(".suggest-recipes-button");
-const inventoryUI = document.querySelector(".inventory-list-u");
+const inventoryUL = document.querySelector(".inventory-list-u");
 const ingredientSuggestionDropDownDiv = document.querySelector("#ingredient-suggestions");
 const inventoryResultsSection = document.querySelector(".inventory-results-section");
+const selecteAllInventoryButton = document.querySelector(".select-all-inventory-button");
+let selectAllInventoryButtonMode = "select";
+const deleteAllInventoryButton = document.querySelector(".delete-all-inventory-button");
+let searchQueryList = [];
+const searchQueryDisplayDiv = document.querySelector("#selected-ingredients-div");
+let invalidIngredientModal = new bootstrap.Modal(document.getElementById('invalid-ingredient-modal'), {
+  keyboard: false
+})
+
 function addIngredient() {
 	const ingredientText = addIngredientInputText.value.trim().toLowerCase();
 	if (!ingredientText) {
 		return;
 	}
+	let isValidIngredient = false;
+	for (let i = 0; i < ingredientsList.length; i++) {
+		if (ingredientsList[i].ingredientName === ingredientText) {
+			isValidIngredient = true;
+			break;
+		}
+	}
+	if (!isValidIngredient) {
+		console.log("invalid");
+		invalidIngredientModal.show();
+		return;
+	}
 }
+addIngredientButton.addEventListener("click", function() {
+	addIngredient();
+});
 
 function getAndShowRandomRecipes() {
 	apiURL = `https://api.spoonacular.com/recipes/random?apiKey=${apikey}&addRecipeInformation=true&number=100`;
