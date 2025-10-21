@@ -115,8 +115,8 @@
       </div>
     </div>
   </div>
-  <div class="modal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered" id = "invalid-ingredient-modal">
+  <div class="modal" tabindex="-1" id = "invalid-ingredient-modal">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Invalid Ingredient</h5>
@@ -124,6 +124,19 @@
         </div>
         <div class="modal-body">
           <p>Invalid ingredient! Please select an ingredient from the suggestions provided.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" tabindex="-1" id = "duplicate-ingredient-modal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Duplicate Ingredient</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>That ingredient already exists in the inventory.</p>
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ let recipeResultsSection = document.querySelector(".results-cards-container");
 const addIngredientInputText = document.querySelector(".add-ingredients-text");
 const addIngredientButton = document.querySelector(".add-ingredient-button");
 const suggestRecipesButton = document.querySelector(".suggest-recipes-button");
-const inventoryUL = document.querySelector(".inventory-list-u");
+const inventoryUL = document.querySelector(".inventory-list-ul");
 const ingredientSuggestionDropDownDiv = document.querySelector("#ingredient-suggestions");
 const inventoryResultsSection = document.querySelector(".inventory-results-section");
 const selecteAllInventoryButton = document.querySelector(".select-all-inventory-button");
@@ -13,10 +13,8 @@ let selectAllInventoryButtonMode = "select";
 const deleteAllInventoryButton = document.querySelector(".delete-all-inventory-button");
 let searchQueryList = [];
 const searchQueryDisplayDiv = document.querySelector("#selected-ingredients-div");
-let invalidIngredientModal = new bootstrap.Modal(document.getElementById('invalid-ingredient-modal'), {
-  keyboard: false
-})
-
+let invalidIngredientModal = new bootstrap.Modal(document.getElementById('invalid-ingredient-modal'));
+let duplicateIngredientModal = new bootstrap.Modal(document.getElementById("duplicate-ingredient-modal"));
 function addIngredient() {
 	const ingredientText = addIngredientInputText.value.trim().toLowerCase();
 	if (!ingredientText) {
@@ -30,15 +28,46 @@ function addIngredient() {
 		}
 	}
 	if (!isValidIngredient) {
-		console.log("invalid");
 		invalidIngredientModal.show();
 		return;
 	}
+	let tempInventoryList;
+	if (localStorage.getItem("inventoryList")) {
+		tempInventoryList = JSON.parse(localStorage.getItem("inventoryList"));
+	} else {
+		tempInventoryList = [];
+	}	
+	if (tempInventoryList.includes(ingredientText)) {
+		duplicateIngredientModal.show();
+		return;
+	}
+	tempInventoryList.push(ingredientText);
+	localStorage.setItem("inventoryList", JSON.stringify(tempInventoryList));
+	addIngredientInputText.value = "";
 }
 addIngredientButton.addEventListener("click", function() {
 	addIngredient();
 });
-
+addIngredientInputText.addEventListener("keydown", function (event) {
+	if (event.key === "Enter") {
+		event.preventDefault();
+		addIngredient();
+	}
+});
+function showSuggestedIngredientsDropdown(query) {
+	if (!query) {
+		query = "";
+	}
+	const matchedByCategory = {};
+	ingredientsList.forEach(function(item) {
+		if (item.ingredientName.toLowerCase().includes(query.toLowerCase())) {
+			if (!matchedByCategory[item.category]) {
+				matchedByCategory[item.category] = [];
+			}
+			matchedByCategory[item.category].push(item.ingredientName);
+		}
+	});
+}
 function getAndShowRandomRecipes() {
 	apiURL = `https://api.spoonacular.com/recipes/random?apiKey=${apikey}&addRecipeInformation=true&number=100`;
 	fetch(apiURL, {
