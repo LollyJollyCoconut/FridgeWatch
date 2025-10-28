@@ -6,7 +6,7 @@ const addIngredientInputText = document.querySelector(".add-ingredients-text");
 const addIngredientButton = document.querySelector(".add-ingredient-button");
 const suggestRecipesButton = document.querySelector(".suggest-recipes-button");
 const inventoryUL = document.querySelector(".inventory-list-ul");
-const ingredientSuggestionDropDownDiv = document.querySelector("#ingredient-suggestions");
+const ingredientSuggestionsDropdownDiv = document.querySelector("#ingredient-suggestions");
 const inventoryResultsSection = document.querySelector(".inventory-results-section");
 const selecteAllInventoryButton = document.querySelector(".select-all-inventory-button");
 let selectAllInventoryButtonMode = "select";
@@ -44,6 +44,8 @@ function addIngredient() {
 	tempInventoryList.push(ingredientText);
 	localStorage.setItem("inventoryList", JSON.stringify(tempInventoryList));
 	addIngredientInputText.value = "";
+	renderInventoryList(tempInventoryList);
+	ingredientSuggestionsDropdownDiv.innerHTML = "";
 }
 addIngredientButton.addEventListener("click", function() {
 	addIngredient();
@@ -67,7 +69,37 @@ function showSuggestedIngredientsDropdown(query) {
 			matchedByCategory[item.category].push(item.ingredientName);
 		}
 	});
+	let suggestionsHTML = "";
+	if (Object.keys(matchedByCategory).length === 0) {
+		suggestionsHTML = '<div class = "list-group-item text-muted">No matches found</div>';
+	}
+	else{
+		for (const category in matchedByCategory) {
+			suggestionsHTML += `<div class = "kist-group-item bg-success-subtle text-success-emphasis fw-bolder text-capitalize suggested-ingredient-category">${category}</div>`;
+			matchedByCategory[category].forEach(function(ingredient) {
+				suggestionsHTML += `<button type = "button" class = "list-group-item list-group-item-action ingredient-suggestion-button" data-ingredient = "${ingredient}"> ${ingredient}</button>`;
+			});
+		}
+	}
+	ingredientSuggestionsDropdownDiv.innerHTML = suggestionsHTML;
+	const suggestedIngredientButtonList = ingredientSuggestionsDropdownDiv.querySelectorAll(".ingredient-suggestion-button");
+	suggestedIngredientButtonList.forEach(function(button) {
+		button.addEventListener("click", function () {
+			const selectedIngredient = this.getAttribute("data-ingredient");
+			addIngredientInputText.value = selectedIngredient;
+			ingredientSuggestionsDropdownDiv.innerHTML = "";
+			addIngredient();
+		});
+	});
 }
+addIngredientInputText.addEventListener("input", function() {
+	const query = this.value.trim().toLowerCase();
+	showSuggestedIngredientsDropdown(query);
+});
+addIngredientInputText.addEventListener("focus", function() {
+	const query = this.value.trim().toLowerCase();
+	showSuggestedIngredientsDropdown(query);
+})
 function getAndShowRandomRecipes() {
 	apiURL = `https://api.spoonacular.com/recipes/random?apiKey=${apikey}&addRecipeInformation=true&number=100`;
 	fetch(apiURL, {

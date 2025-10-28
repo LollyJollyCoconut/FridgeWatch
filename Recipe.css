@@ -615,3 +615,8 @@ body{
 	height: 1.25em;
 	vertical-align: middle;
 }
+
+.suggested-ingredient-category {
+	color: #0a3622;
+	background-color: #d1e7dd;
+}
