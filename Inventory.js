@@ -5,7 +5,7 @@ let recipeResultsSection = document.querySelector(".results-cards-container");
 const addIngredientInputText = document.querySelector(".add-ingredients-text");
 const addIngredientButton = document.querySelector(".add-ingredient-button");
 const suggestRecipesButton = document.querySelector(".suggest-recipes-button");
-const inventoryUL = document.querySelector(".inventory-list-ul");
+const inventoryUl = document.querySelector(".inventory-list-ul");
 const ingredientSuggestionsDropdownDiv = document.querySelector("#ingredient-suggestions");
 const inventoryResultsSection = document.querySelector(".inventory-results-section");
 const selecteAllInventoryButton = document.querySelector(".select-all-inventory-button");
@@ -56,6 +56,59 @@ addIngredientInputText.addEventListener("keydown", function (event) {
 		addIngredient();
 	}
 });
+function renderInventoryList(invList) {
+	inventoryUl.innerHTML = "";
+	if (!invList || invList.length ===0) {
+		inventoryUl.innerHTML = `<li class = "list-group-item text-center text-muted">
+			Your inventory is Empty.
+		</li>`;
+		return;
+	}
+	let listHTML = "";
+	invList.forEach((ingredient, index) => {
+		const checkboxId = `ingredientCheckbox${index}`;
+		listHTML += `<li class = "list-group-item d-flex justify-content-between align-items-center inventory-list-item">
+			<label class = "flex-grow-1 d-flex align-items-center" for = "${checkboxId}">
+				<input type = "checkbox" class = "form-check-input flex-shrink-0 ingredient-checkbox me-2" id = "${checkboxId}" value = "${ingredient}" ${searchQueryList.includes(ingredient) ? "checked" : ""}>
+				<span class = "text-wrap">${ingredient}</span>
+			</label>
+			<button class = "btn btn-outline-danger delete-ingredient-button ms-2" type = "button" aria-label = "Delete inventory item" data-index = "${index}">x</button>
+		</li>`;
+	});
+	inventoryUl.innerHTML = listHTML;
+	const deleteButtons = inventoryUl.querySelectorAll(".delete-ingredient-button");
+	deleteButtons.forEach(button => {
+		button.addEventListener("click", function() {
+			const index = parseInt(button.getAttribute("data-index"));
+			deleteIngredient(index);
+		});
+	});
+	const inventoryCheckboxes = inventoryUl.querySelectorAll(".ingredient-checkbox");
+	inventoryCheckboxes.forEach(checkbox => {
+		checkbox.addEventListener("change", function() {
+			const ingredient = this.value;
+			if (this.checked) {
+				addToSearchQuery(ingredient);
+			}
+			else {
+				removeFromSearchQuery(ingredient);
+			}
+			updateSelectAllButtonMode();
+		});
+	});
+}
+document.addEventListener("DOMContentLoaded", function(){
+	const savedInventory = JSON.parse(localStorage.getItem("inventoryList")) || [];
+	renderInventoryList(savedInventory);
+});
+function deleteIngredient(index) {
+	let tempInventoryList = JSON.parse(localStorage.getItem("inventoryList")) || [];
+	if (index < 0 || index >= tempInventoryList.length) {
+		console.log("Invalid index passed to deleteIngredient:", index);
+		return;
+	}
+	const removedIngredient = tempInventoryList[index];
+}
 function showSuggestedIngredientsDropdown(query) {
 	if (!query) {
 		query = "";
