@@ -108,6 +108,44 @@ function deleteIngredient(index) {
 		return;
 	}
 	const removedIngredient = tempInventoryList[index];
+	tempInventoryList.splice(index, 1);
+	const searchQueryIndex = searchQueryList.indexOf(removedIngredient);
+	if (searchQueryIndex !== -1) {
+		searchQueryList.splice(searchQueryIndex, 1);
+		updateSelectedIngredientsDisplay();
+	}
+	localStorage.setItem("inventoryList", JSON.stringify(tempInventoryList));
+	renderInventoryList(tempInventoryList);
+	updateSelectAllButtonMode();
+}
+function updateSelectedIngredientsDisplay() {
+	console.log("updating search query");
+	if (searchQueryList.length === 0) {
+		searchQueryDisplayDiv.innerHTML = "<em> No ingredients selected. </em>";
+	}
+	else {
+		searchQueryDisplayDiv.innerHTML = searchQueryList
+		.map(ingredient => `<span class = "badge bg-success me-1">${ingredient}</span>`)
+		.join("");
+	}
+}
+function updateSelectAllButtonMode() {
+	console.log("updating select all button mode");
+}
+function addToSearchQuery(ingredient) {
+	if (!searchQueryList.includes(ingredient)) {
+		searchQueryList.push(ingredient);
+		updateSelectedIngredientsDisplay();
+		console.log("Added: ", ingredient, "Current searchQueryList: ", searchQueryList);
+	}
+}
+function removeFromSearchQuery(ingredient) {
+	const index = searchQueryList.indexOf(ingredient);
+	if (index > -1) {
+		searchQueryList.splice(index, 1);
+		updateSelectedIngredientsDisplay();
+		console.log("Removed:", ingredient, "Current searchQueryList:", searchQueryList);
+	}
 }
 function showSuggestedIngredientsDropdown(query) {
 	if (!query) {
