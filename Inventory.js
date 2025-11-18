@@ -77,9 +77,11 @@ function renderInventoryList(invList) {
 	});
 	inventoryUl.innerHTML = listHTML;
 	const deleteButtons = inventoryUl.querySelectorAll(".delete-ingredient-button");
+	console.log(deleteButtons);
 	deleteButtons.forEach(button => {
 		button.addEventListener("click", function() {
 			const index = parseInt(button.getAttribute("data-index"));
+			console.log(index);
 			deleteIngredient(index);
 		});
 	});
@@ -118,6 +120,10 @@ function deleteIngredient(index) {
 	renderInventoryList(tempInventoryList);
 	updateSelectAllButtonMode();
 }
+function deleteAllIngredients() {
+	const confirmDelete = confirm("Are you sure you want to delete all items from your inventory?");
+}
+deleteAllInventoryButton.addEventListener("click", deleteAllIngredients);
 function updateSelectedIngredientsDisplay() {
 	console.log("updating search query");
 	if (searchQueryList.length === 0) {
