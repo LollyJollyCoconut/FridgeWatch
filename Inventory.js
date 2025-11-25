@@ -8,7 +8,7 @@ const suggestRecipesButton = document.querySelector(".suggest-recipes-button");
 const inventoryUl = document.querySelector(".inventory-list-ul");
 const ingredientSuggestionsDropdownDiv = document.querySelector("#ingredient-suggestions");
 const inventoryResultsSection = document.querySelector(".inventory-results-section");
-const selecteAllInventoryButton = document.querySelector(".select-all-inventory-button");
+const selectAllInventoryButton = document.querySelector(".select-all-inventory-button");
 let selectAllInventoryButtonMode = "select";
 const deleteAllInventoryButton = document.querySelector(".delete-all-inventory-button");
 let searchQueryList = [];
@@ -122,6 +122,12 @@ function deleteIngredient(index) {
 }
 function deleteAllIngredients() {
 	const confirmDelete = confirm("Are you sure you want to delete all items from your inventory?");
+	if (!confirmDelete) {
+		return;
+	} else {
+		localStorage.removeItem("inventoryList");
+		renderInventoryList([]);
+	}
 }
 deleteAllInventoryButton.addEventListener("click", deleteAllIngredients);
 function updateSelectedIngredientsDisplay() {
@@ -137,7 +143,51 @@ function updateSelectedIngredientsDisplay() {
 }
 function updateSelectAllButtonMode() {
 	console.log("updating select all button mode");
+	const inventoryCheckboxes = inventoryUl.querySelectorAll(".ingredient-checkbox");
+	const totalNumCheckboxes = inventoryCheckboxes.length;
+	const checkedNumCheckboxes = Array.from(inventoryCheckboxes).filter(checkbox => checkbox.checked).length;
+	if (checkedNumCheckboxes == 0) {
+		selectAllInventoryButton.textContent = "Select All Items";
+		selectAllInventoryButtonMode = "select";
+	}else if (checkedNumCheckboxes == totalNumCheckboxes) {
+		selectAllInventoryButton.textContent = "Deselect All Items";
+		selectAllInventoryButtonMode = "deselect";
+	}else {
+		selectAllInventoryButton.textContent = "Select All Items";
+		selectAllInventoryButtonMode = "select";
+	}
 }
+document.addEventListener("click", function (event) {
+	if (!ingredientSuggestionsDropdownDiv.contains(event.target) && event.target !== addIngredientInputText) {
+		ingredientSuggestionsDropdownDiv.innerHTML = "";
+	}
+});
+function toggleSelectAllMode() {
+	const inventoryCheckboxes = inventoryUl.querySelectorAll(".ingredient-checkbox");
+	if (selectAllInventoryButtonMode == "select") {
+		console.log("selecting all");
+		inventoryCheckboxes.forEach(function(checkbox) {
+			if (!checkbox.checked) {
+				checkbox.checked = true;
+				addToSearchQuery(checkbox.value);
+			}
+		});
+		selectAllInventoryButton.textContent = "Deselect All Items";
+		selectAllInventoryButtonMode = "deselect";
+	}
+	else {
+		console.log("deselecting all now");
+		inventoryCheckboxes.forEach(function(checkbox) {
+			if (checkbox.checked) {
+				checkbox.checked = false;
+				removeFromSearchQuery(checkbox.value);
+			}
+		});
+		selectAllInventoryButton.textContent = "Select All Items";
+		selectAllInventoryButtonMode = "select";
+	}
+}
+selectAllInventoryButton.addEventListener("click", toggleSelectAllMode);
 function addToSearchQuery(ingredient) {
 	if (!searchQueryList.includes(ingredient)) {
 		searchQueryList.push(ingredient);
