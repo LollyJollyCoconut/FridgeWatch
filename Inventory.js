@@ -15,6 +15,7 @@ let searchQueryList = [];
 const searchQueryDisplayDiv = document.querySelector("#selected-ingredients-div");
 let invalidIngredientModal = new bootstrap.Modal(document.getElementById('invalid-ingredient-modal'));
 let duplicateIngredientModal = new bootstrap.Modal(document.getElementById("duplicate-ingredient-modal"));
+let emptyInventoryModal = new bootstrap.Modal(document.getElementById("empty-inventory-modal"));
 function addIngredient() {
 	const ingredientText = addIngredientInputText.value.trim().toLowerCase();
 	if (!ingredientText) {
@@ -247,8 +248,21 @@ addIngredientInputText.addEventListener("focus", function() {
 	const query = this.value.trim().toLowerCase();
 	showSuggestedIngredientsDropdown(query);
 })
-function getAndShowRandomRecipes() {
-	apiURL = `https://api.spoonacular.com/recipes/random?apiKey=${apikey}&addRecipeInformation=true&number=100`;
+function getAndShowRecipesBasedOnInventory() {
+	apiURL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apikey}&addRecipeInformation=true&number=100`;
+	if (searchQueryList.length > 0) {
+		apiURL += `&includeIngredients=${searchQueryList}`;
+	} else {
+		let tempInventoryList;
+		if (localStorage.getItem("inventoryList")) {
+			tempInventoryList = JSON.parse(localStorage.getItem("inventoryList"));
+			apiURL += `&includeIngredients=${tempInventoryList}`;
+		} else {
+			recipeResultsSection.innerHTML = "";
+			emptyInventoryModal.show();
+			return;
+		}
+	}
 	fetch(apiURL, {
 		"method": "GET"
 	})
@@ -261,7 +275,7 @@ function getAndShowRandomRecipes() {
 		apiResponse = data;
 		recipeResultsList = apiResponse.recipes;
 		displayResults();
-		recipeResultsSection.scrollIntoView({
+		inventoryResultsSection.scrollIntoView({
 			behavior: "smooth",
 			block: "start",
 			inline: "nearest"
@@ -271,6 +285,7 @@ function getAndShowRandomRecipes() {
 		console.error(err);
 	});
 }
+suggestRecipesButton.addEventListener("click", getAndShowRecipesBasedOnInventory);
 
 function displayResults() {
 	recipeResultsSection.innerHTML = "";

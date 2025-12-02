@@ -86,15 +86,6 @@
         </div>
         <div class = "row inventory-list">
           <ul class="list-group list-group-flush pe-0 inventory-list-ul">
-            <li class="list-group-item d-flex justify-content-between align-items-center inventory-list-item">
-              <label class = "flex-grow-1 d-flex align-items-center" for = "inclineCheckbox1">
-                <input type = "checkbox" class = "form-check-input flex-shrink-0 ingredient-checkbox me-2" id = "inlineCheckbox1" value = "option1">
-                <span class = "text-wrap">
-                  Cheese
-                </span>
-              </label>
-              <button class = "btn btn-outline-danger delete-ingredient-button ms-2" type = "button">x</button>
-            </li>
             <li class = "list-group-item text-center text-muted">Inventory Loading</li>
           </ul>
         </div>
@@ -137,6 +128,19 @@
         </div>
         <div class="modal-body">
           <p>That ingredient already exists in the inventory.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" tabindex="-1" id = "empty-inventory-modal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Zero Ingredient</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Please add some ingredients first.</p>
         </div>
       </div>
     </div>
